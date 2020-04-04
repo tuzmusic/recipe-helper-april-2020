@@ -28,7 +28,7 @@ export type CookingSessionState = {
   instructions: Instruction[]
   ingredients: Ingredient[]
   activeTimers: CookingTimer[]
-  currentStepId: number
+  currentStepIndex: number
 }
 
 export type RecipeInfo = {

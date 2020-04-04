@@ -11,19 +11,24 @@ export class Recipe {
 }
 
 export class Instruction {
-  ingredients: Ingredient[] = [];
-  timers: CookingTimer[] = []
+  timers: CookingTimer[] = [];
+  
+  constructor(public text: string) {}
+  
+  // todo: handle ingredients in an instruction.
+  //  might actually be a selector.
+  // ingredients: Ingredient[] = [];
 }
 
 export class Ingredient {
-  text: string = "";
   id: string = "";
   state: IngredientState = {
     done: false
   };
+  
+  constructor(public text: string) {}
 }
 
 export class CookingTimer {
-  durationSec: number = 0;
-  label: string = ""
+  constructor(public durationSec = 0, public label = "") {}
 } // & TimerApiType

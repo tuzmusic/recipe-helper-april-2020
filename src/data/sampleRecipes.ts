@@ -1,0 +1,22 @@
+import { CookingTimer, Ingredient, Instruction, Recipe } from "../models/Models";
+
+export const cookies = () => {
+  const recipe = new Recipe();
+  recipe.info.title = "Cookies";
+  recipe.ingredients = [
+    "2 cups flour",
+    "1 cup chips",
+    "2 tbsp sugar",
+    "1 egg"
+  ].map(i => new Ingredient(i));
+  
+  const basicStep = new Instruction("Preheat the oven to 375");
+  const ingStep = new Instruction("Mix flour, chips and sugar");
+  const timeStep = new Instruction("Bake for 30 minutes");
+  const timer = new CookingTimer(30 * 60, "Bake");
+  timeStep.timers.push(timer);
+  
+  recipe.instructions = [basicStep, ingStep, timeStep];
+  
+  return recipe
+};
