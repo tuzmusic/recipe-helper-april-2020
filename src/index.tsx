@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 
 function render() {
-  const App = require('./App').default;
+  const App = require('./components/App').default;
   (window as any)['store'] = store;
   ReactDOM.render(
     <Provider store={ store }>

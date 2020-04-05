@@ -1,9 +1,10 @@
 import React from 'react';
-import { CookingSessionState } from "./redux/state/stateMap";
+import { CookingSessionState } from "../redux/state/stateMap";
 import { connect } from "react-redux";
-import { RootState } from "./redux/rootReducer";
-import { startRecipe } from "./redux/cookingSessionSlice"
-import { cookies } from "./data/sampleRecipes";
+import { RootState } from "../redux/rootReducer";
+import { startRecipe } from "../redux/cookingSessionSlice"
+import { cookies } from "../data/sampleRecipes";
+import CookingActivityContainer from "./CookingActivity";
 
 const App = ({ startMockRecipe }: { startMockRecipe: Function }) => {
   startMockRecipe();
@@ -13,6 +14,7 @@ const App = ({ startMockRecipe }: { startMockRecipe: Function }) => {
 };
 
 export default connect(null, dispatch => ({
+  // populates the state with our mock recipe
   startMockRecipe: () => dispatch(startRecipe(cookies()))
 }))(App);
 
@@ -20,7 +22,7 @@ const CookingSession = () => {
   return (
     <>
       <PrintedRecipeContainer/>
-      {/*< CookingActivityContainer/>*/ }
+      <CookingActivityContainer/>
     </>
   )
 };
