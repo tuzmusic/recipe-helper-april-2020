@@ -27,12 +27,14 @@ const CookingSession = () => {
   )
 };
 
-const PrintedRecipe = ({ recipeInfo, instructions, ingredients }: CookingSessionState) => {
+const PrintedRecipe = ({ recipeInfo, instructions, ingredients, currentStepIndex }: CookingSessionState) => {
   return (
     <div>
       <h1>{ recipeInfo!.title }</h1>
       <ol>
-        { instructions.map(({ text }) => <li key={ text }>{ text }</li>) }
+        { instructions.map(({ text }, i) => <li
+          style={ { fontWeight: i === currentStepIndex ? 'bold' : 'normal' } }
+          key={ text }>{ text }</li>) }
       </ol>
       <ul>
         { ingredients.map(({ text }) => <li key={ text }>{ text }</li>) }
