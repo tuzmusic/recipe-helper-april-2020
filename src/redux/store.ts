@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
-
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import rootReducer from './rootReducer'
 
 const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware().slice(0, 1) // leave out the middleware that checks for a serializable state.
 });
 
 if (process.env.NODE_ENV === 'development') {
