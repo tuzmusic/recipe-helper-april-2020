@@ -10,7 +10,9 @@ export const cookies = () => {
     "1 egg"
   ].map(i => new Ingredient(i));
   
-  const basicStep = new Instruction("Preheat the oven to 375");
+  const basicStep = new Instruction("Preheat the oven to 375, while dancing for one minute");
+  basicStep.timers.push(new CookingTimer(60, "Dance"));
+  
   const ingStep = new Instruction("Mix flour, chips and sugar");
   const timeStep = new Instruction("Bake for 30 minutes");
   const timer = new CookingTimer(30 * 60, "Bake");

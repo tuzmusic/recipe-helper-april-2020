@@ -2,21 +2,32 @@ import React, { MouseEvent } from 'react'
 import { CookingSessionState } from "../redux/state/stateMap";
 import { connect } from "react-redux";
 import { RootState } from "../redux/rootReducer";
-import { Instruction } from "../models/Models";
-import { decStep, incStep } from "../redux/cookingSessionSlice"
+import { CookingTimer, Instruction } from "../models/Models";
+import { clearTimer, decStep, incStep, startTimer } from "../redux/cookingSessionSlice"
 
-const CurrentStep = (props: { step: Instruction }) => {
-  return <div>
-    <h3>Current Step</h3>
-    <p>{ props.step.text }</p>
-  </div>
+type ClickHandler = (event: MouseEvent) => void
+
+const CurrentStep = ({ step, startTimer }: { step: Instruction, startTimer: (t: CookingTimer) => void }) => {
+  return (
+    <div style={ { border: "solid black thin", padding: 10 } }>
+      <h2>Current Step</h2>
+      <p>{ step.text }</p>
+      { step.timers.length > 0 && <div>
+          <p>Timers:</p>
+        { step.timers.map(timer =>
+          <button onClick={ () => startTimer(timer) }>Start "{ timer.label }"</button>) }
+      </div> }
+    </div>
+  )
 };
 
 const CurrentStepContainer = connect(
-  (state: RootState) => ({ step: state.cookingSession.instructions[state.cookingSession.currentStepIndex] })
-)(CurrentStep);
-
-type ClickHandler = (event: MouseEvent) => void
+  ({ cookingSession }: RootState) => ({
+    step: cookingSession.instructions[cookingSession.currentStepIndex]
+  }),
+  { startTimer }
+)
+(CurrentStep);
 
 const StepControls = ({ incStep, decStep }: { incStep: ClickHandler, decStep: ClickHandler }) => {
   return (
@@ -30,11 +41,27 @@ const StepControls = ({ incStep, decStep }: { incStep: ClickHandler, decStep: Cl
 
 const StepControlsContainer = connect(null, { decStep, incStep })(StepControls);
 
+const ActiveTimers = ({ timers, clearTimer }: { timers: CookingTimer[], clearTimer: (t: CookingTimer) => void }) => {
+  return <div>
+    <h3>Active Timers</h3>
+    { !timers.length ? "No timers." : timers.map(timer =>
+      <div>{ timer.label }
+        <span onClick={ () => clearTimer(timer) }> [X]</span>
+      </div>
+    ) }
+  </div>
+};
+
+const ActiveTimersContainer = connect(
+  ({ cookingSession }: RootState) => ({ timers: cookingSession.activeTimers }),
+  { clearTimer }
+)(ActiveTimers);
+
 const CookingActivity = (props: CookingSessionState) => {
   return <div>
-    {/* timers */ }
     <CurrentStepContainer/>
     <StepControlsContainer/>
+    <ActiveTimersContainer/>
   </div>
 };
 const CookingActivityContainer = connect((state: RootState) => state.cookingSession)(CookingActivity);
