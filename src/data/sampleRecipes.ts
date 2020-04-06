@@ -11,7 +11,7 @@ export const cookies = () => {
   ].map(i => new Ingredient(i));
   
   const basicStep = new Instruction("Preheat the oven to 375, while dancing for one minute");
-  basicStep.timers.push(new CookingTimer(60, "Dance"));
+  basicStep.timers.push(new CookingTimer(5, "Dance"));
   
   const ingStep = new Instruction("Mix flour, chips and sugar");
   const timeStep = new Instruction("Bake for 30 minutes");
