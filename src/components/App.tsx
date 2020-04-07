@@ -2,21 +2,16 @@ import React from 'react';
 import { CookingSessionState } from "../redux/state/stateMap";
 import { connect } from "react-redux";
 import { RootState } from "../redux/rootReducer";
-import { startRecipe } from "../redux/cookingSessionSlice"
-import { cookies } from "../data/sampleRecipes";
 import CookingActivityContainer from "./CookingActivity";
+import { SimpleBorderedContainer } from "./UtilityComponents";
 
-const App = ({ startMockRecipe }: { startMockRecipe: Function }) => {
-  startMockRecipe();
+const App = () => {
   return (
     <CookingSession/>
   );
 };
 
-export default connect(null, dispatch => ({
-  // populates the state with our mock recipe
-  startMockRecipe: () => dispatch(startRecipe(cookies()))
-}))(App);
+export default App
 
 const CookingSession = () => {
   return (
@@ -29,7 +24,7 @@ const CookingSession = () => {
 
 const PrintedRecipe = ({ recipeInfo, instructions, ingredients, currentStepIndex }: CookingSessionState) => {
   return (
-    <div>
+    <SimpleBorderedContainer>
       <h1>{ recipeInfo!.title }</h1>
       <ol>
         { instructions.map(({ text }, i) => <li
@@ -39,7 +34,7 @@ const PrintedRecipe = ({ recipeInfo, instructions, ingredients, currentStepIndex
       <ul>
         { ingredients.map(({ text }) => <li key={ text }>{ text }</li>) }
       </ul>
-    </div>
+    </SimpleBorderedContainer>
   )
 };
 

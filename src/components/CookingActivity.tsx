@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react'
+import React, { MouseEvent } from 'react'
 import { CookingSessionState } from "../redux/state/stateMap";
 import { connect } from "react-redux";
 import { RootState } from "../redux/rootReducer";
@@ -6,6 +6,7 @@ import { CookingTimer, Instruction } from "../models/Models";
 import { clearTimer, decStep, incStep, startTimer } from "../redux/cookingSessionSlice"
 import styled from "@emotion/styled";
 import Timer from 'react-compound-timer'
+import { SimpleBorderedContainer } from "./UtilityComponents";
 
 type ClickHandler = (event: MouseEvent) => void
 const Section = styled.div({
@@ -26,8 +27,8 @@ const CurrentStep = ({ step, startTimer }: { step: Instruction, startTimer: (t: 
       <p>{ step.text }</p>
       { step.timers.length > 0 && <div>
           <p>Timers:</p>
-        { step.timers.map(timer =>
-          <button onClick={ () => startTimer(timer) }>Start "{ timer.label }"</button>) }
+        { step.timers.map((timer, i) =>
+          <button key={ i } onClick={ () => startTimer(timer) }>Start "{ timer.label }"</button>) }
       </div> }
     </Section>
   )
@@ -54,28 +55,22 @@ const StepControls = ({ incStep, decStep }: { incStep: ClickHandler, decStep: Cl
 const StepControlsContainer = connect(null, { decStep, incStep })(StepControls);
 
 const ActiveTimers = ({ timers, clearTimer }: { timers: CookingTimer[], clearTimer: (t: CookingTimer) => void }) => {
-  const [timerDone, setDone] = useState(false);
   return <Section>
     <h3>Active Timers</h3>
     { !timers.length ? "No timers." : timers.map(timer =>
-      <Timer
-        direction="backward"
-        initialTime={ timer.durationSec * 1000 }
-        checkpoints={ [
-          {
-            time: 0,
-            callback: () => setDone(true)
-          }
-        ] }
+      <Timer direction="backward"
+             initialTime={ timer.durationSec * 1000 }
+        // checkpoints={ [{ time: 0, callback: () => {/* handle timer completion */} }] }
       >
-        { ({ start, stop, reset }) =>
+        { ({ start, stop, reset, getTime, ...timerProps }: any) =>
           <div style={ { display: 'flex' } }>
-            { timer.label }:
-            { timerDone ? "Done!" :
+            { console.log(getTime()) }
+            { timer.label }{ ": " }
+            { getTime() <= 0 ? "Done!" :
               <>
                 <Timer.Minutes/>:
                 <Timer.Seconds formatValue={ (v: number) => `${ v }`.padStart(2, "0") }/>
-              </> }
+              </> }{ " " }
             <button onClick={ start }>Start</button>
             <button onClick={ stop }>Stop</button>
             <button onClick={ reset }>Reset</button>
@@ -93,11 +88,11 @@ const ActiveTimersContainer = connect(
 )(ActiveTimers);
 
 const CookingActivity = (props: CookingSessionState) => {
-  return <div>
+  return <SimpleBorderedContainer style={ { padding: 0 } }>
     <ActiveTimersContainer/>
     <StepControlsContainer/>
     <CurrentStepContainer/>
-  </div>
+  </SimpleBorderedContainer>
 };
 const CookingActivityContainer = connect((state: RootState) => state.cookingSession)(CookingActivity);
 
