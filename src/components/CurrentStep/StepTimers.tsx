@@ -4,17 +4,15 @@ import { CookingTimer } from "../../models/Models";
 import { connect } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
 import { selectCurrentStepTimers } from "../../redux/selectors/cookingSession.selectors";
+import { CenterFlexColumn } from "../StepsCarousel/StepsCarousel";
 
-// type Props =
+type Props = { timers: CookingTimer[] }
 
-const StepTimers = ({ timers }: { timers: CookingTimer[] }) =>
-  <div>
+const StepTimers = ({ timers }: Props) =>
+  <CenterFlexColumn>
     <h3>Timers:</h3>
-    {
-      timers.map((t, i) =>
-        <TimerContainer key={ i } timer={ t }/>)
-    }
-  </div>
+    { timers.map((t, i) => <TimerContainer key={ i } timer={ t }/>) }
+  </CenterFlexColumn>
 
 const selectProps = (state: RootState) => ({ timers: selectCurrentStepTimers(state) })
 const StepTimersContainer = connect(selectProps)(StepTimers)

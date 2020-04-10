@@ -4,27 +4,30 @@ import styled from "@emotion/styled";
 import { Instruction } from "../../models/Models";
 import { ClickHandler } from "../../types/utility.types";
 
-const CenterFlexRow = styled.div({
+export const CenterFlex = styled.div({
   display: 'flex',
-  flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
   position: 'relative',
 })
+export const CenterFlexColumn = styled(CenterFlex)({ flexDirection: 'column' })
+const CarouselWrapper = styled(CenterFlex)({})
 
-const CarouselWrapper = styled(CenterFlexRow)({
-  border: 'solid red'
+const Arrow = styled(CenterFlex)({
+  width: '100px',
+  height: '60px',
+  fontSize: '50px',
+  borderRadius: '200%',
+  fontWeight: 'bold',
+  color: 'grey',
+  userSelect: 'none',
+  background: 'lightblue',
 })
 
-const Arrow = styled(CenterFlexRow)({
-  border: 'solid blue',
-  width: '10%',
-  userSelect: 'none'
-})
-
-const StepsContainer = styled(CenterFlexRow)({
+const StepsWrapper = styled(CenterFlex)({
   width: '100%',
   height: '100px',
+  margin: '10px',
   overflow: 'hidden'
 })
 
@@ -36,14 +39,13 @@ type Props = {
 
 const StepsCarousel = ({ steps, incStep, decStep }: Props) =>
   <CarouselWrapper>
-    <Arrow onClick={ incStep }>{ "<" }</Arrow>
-    
-    <StepsContainer>{
+    <Arrow onClick={ incStep }>{ "←" }</Arrow>
+    <StepsWrapper>{
       steps.map((step, i) =>
         <CookingStepContainer step={ step } key={ i }/>
       )
-    }</StepsContainer>
-    <Arrow onClick={ decStep }>{ ">" }</Arrow>
+    }</StepsWrapper>
+    <Arrow onClick={ decStep }>{ "→" }</Arrow>
   </CarouselWrapper>
 
 export default StepsCarousel

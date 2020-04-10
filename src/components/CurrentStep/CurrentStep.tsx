@@ -7,7 +7,7 @@ import StepsCarouselContainer from "../StepsCarousel/StepsCarouselContainer";
 const CurrentStep = () => {
   console.log('render CurrentStep')
   return (
-    <Section>
+    <Section style={ { height: '300px' } }>
       <h2>Current Step</h2>
       <StepsCarouselContainer/>
       <StepTimersContainer/>

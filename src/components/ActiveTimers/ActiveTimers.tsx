@@ -6,8 +6,8 @@ import { Section } from "../UtilityComponents";
 export const ActiveTimers = ({ timers, clearTimer }: { timers: CookingTimer[], clearTimer: (t: CookingTimer) => void }) => {
   return <Section>
     <h3>Active Timers</h3>
-    { !timers.length ? "No timers." : timers.map(timer =>
-      <Timer direction="backward"
+    { !timers.length ? "No timers." : timers.map((timer, i) =>
+      <Timer key={ i } direction="backward"
              initialTime={ timer.durationSec * 1000 }
         // checkpoints={ [{ time: 0, callback: () => {/* handle timer completion */} }] }
       >
