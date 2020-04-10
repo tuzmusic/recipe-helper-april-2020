@@ -1,0 +1,13 @@
+.slide {
+    /*border: solid thin blue;*/
+}
+
+.slider {
+    width: 90% !important;
+    border: solid thin red;
+    display: flex;
+}
+
+.slider a {
+    position: relative !important;
+}

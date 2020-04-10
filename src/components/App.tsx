@@ -2,8 +2,8 @@ import React from 'react';
 import { CookingSessionState } from "../redux/state/stateMap";
 import { connect } from "react-redux";
 import { RootState } from "../redux/rootReducer";
-import CookingActivityContainer from "./CookingActivity";
 import { SimpleBorderedContainer } from "./UtilityComponents";
+import CookingActivityContainer from "./CookingActivity/CookingActivity";
 
 const App = () => {
   return (
