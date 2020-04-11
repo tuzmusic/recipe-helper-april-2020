@@ -4,7 +4,7 @@ import { CookingTimer } from "../../models/Models";
 import { connect } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
 import { selectCurrentStepTimers } from "../../redux/selectors/cookingSession.selectors";
-import { CenterFlexColumn } from "../StepsCarousel/StepsCarousel";
+import { CenterFlexColumn } from "../UtilityComponents";
 
 type Props = { timers: CookingTimer[] }
 

@@ -3,17 +3,14 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Instruction } from "../../models/Models";
 import { ClickHandler } from "../../types/utility.types";
+import { CenterFlexRow } from "../UtilityComponents";
 
-export const CenterFlex = styled.div({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  position: 'relative',
-})
-export const CenterFlexColumn = styled(CenterFlex)({ flexDirection: 'column' })
-const CarouselWrapper = styled(CenterFlex)({})
+// const CarouselWrapper = styled(CenterFlexRow)({})
 
-const Arrow = styled(CenterFlex)({
+const CarouselWrapper = ({ children }: any) =>
+  <CenterFlexRow bordered padding children={ children }/>
+
+const Arrow = styled(CenterFlexRow)({
   width: '100px',
   height: '60px',
   fontSize: '50px',
@@ -24,7 +21,7 @@ const Arrow = styled(CenterFlex)({
   background: 'lightblue',
 })
 
-const StepsWrapper = styled(CenterFlex)({
+const StepsWrapper = styled(CenterFlexRow)({
   width: '100%',
   height: '100px',
   margin: '10px',
