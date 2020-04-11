@@ -12,37 +12,21 @@ type Props = {
   step: Instruction
   currentness?: Currentness
 }
-export const CookingStep = ({ step, currentness }: Props) => {
-  
-  const StepWrapper = styled.div({
-    width: '100%',
-    background: 'lightgrey',
-    height: '100px',
-    position: 'absolute',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    transition: '1s ease',
-    left: currentness! * 100 + '%',
-    '&.right': {
-      left: '100%'
-    },
-    '&.current': {
-      left: '0%'
-    },
-    '&.left': {
-      left: '-100%'
-    }
-  })
-  
-  const keys = Object.keys(Currentness)
-  const values = Object.values(Currentness)
-  const className = '' // keys[values.indexOf(currentness!)]!.toLowerCase()
-  // console.log(className, step.text)
-  return <StepWrapper className={ className }
-                      children={ step.text }
+const StepWrapper = styled.div<{ currentness: Currentness }>({
+  width: '100%',
+  background: 'lightgrey',
+  height: '100px',
+  position: 'absolute',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  transition: '1s ease',
+}, ({ currentness }) => ({ left: currentness * 100 + '%' }))
+
+export const CookingStep = ({ step, currentness }: Props) =>
+  <StepWrapper currentness={ currentness! }
+               children={ step.text }
   />
-}
 
 /* CONTAINER */
 
