@@ -9,7 +9,7 @@ import { CenterFlexColumn } from "../UtilityComponents";
 type Props = { timers: CookingTimer[] }
 
 const StepTimers = ({ timers }: Props) =>
-  <CenterFlexColumn>
+  <CenterFlexColumn bordered padding>
     <h3>Timers:</h3>
     { timers.map((t, i) => <TimerContainer key={ i } timer={ t }/>) }
   </CenterFlexColumn>

@@ -8,7 +8,8 @@ import { CenterFlexRow } from "../UtilityComponents";
 // const CarouselWrapper = styled(CenterFlexRow)({})
 
 const CarouselWrapper = ({ children }: any) =>
-  <CenterFlexRow bordered padding children={ children }/>
+  <CenterFlexRow bordered padding fullWidth
+                 children={ children }/>
 
 const Arrow = styled(CenterFlexRow)({
   width: '100px',
@@ -16,9 +17,8 @@ const Arrow = styled(CenterFlexRow)({
   fontSize: '50px',
   borderRadius: '200%',
   fontWeight: 'bold',
-  color: 'grey',
+  border: 'black solid',
   userSelect: 'none',
-  background: 'lightblue',
 })
 
 const StepsWrapper = styled(CenterFlexRow)({
@@ -35,14 +35,14 @@ type Props = {
 }
 
 const StepsCarousel = ({ steps, incStep, decStep }: Props) =>
-  <CarouselWrapper>
-    <Arrow onClick={ incStep }>{ "←" }</Arrow>
+  <CarouselWrapper className={ 'inner-carousel-wrapper' }>
+    <Arrow onClick={ decStep }>{ "←" }</Arrow>
     <StepsWrapper>{
       steps.map((step, i) =>
         <CookingStepContainer step={ step } key={ i }/>
       )
     }</StepsWrapper>
-    <Arrow onClick={ decStep }>{ "→" }</Arrow>
+    <Arrow onClick={ incStep }>{ "→" }</Arrow>
   </CarouselWrapper>
 
 export default StepsCarousel

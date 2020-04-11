@@ -14,13 +14,12 @@ type Props = {
 }
 const StepWrapper = styled.div<{ currentness: Currentness }>({
   width: '100%',
-  background: 'lightgrey',
   height: '100px',
   position: 'absolute',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  transition: '1s ease',
+  transition: '0.5s ease',
 }, ({ currentness }) => ({ left: currentness * 100 + '%' }))
 
 export const CookingStep = ({ step, currentness }: Props) =>

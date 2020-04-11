@@ -1,10 +1,10 @@
 import { CookingTimer } from "../../models/Models";
 import Timer from "react-compound-timer";
 import React from "react";
-import { Section } from "../UtilityComponents";
+import { CenterFlexColumn } from "../UtilityComponents";
 
 export const ActiveTimers = ({ timers, clearTimer }: { timers: CookingTimer[], clearTimer: (t: CookingTimer) => void }) => {
-  return <Section>
+  return <CenterFlexColumn bordered padding>
     <h3>Active Timers</h3>
     { !timers.length ? "No timers." : timers.map((timer, i) =>
       <Timer key={ i } direction="backward"
@@ -28,5 +28,5 @@ export const ActiveTimers = ({ timers, clearTimer }: { timers: CookingTimer[], c
         }
       </Timer>
     ) }
-  </Section>
+  </CenterFlexColumn>
 };
