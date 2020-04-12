@@ -19,6 +19,14 @@ export const cookies = () => {
   timeStep.timers.push(timer);
   
   recipe.instructions = [basicStep, ingStep, timeStep];
-  
   return recipe
 };
+
+export const manySteps = () => {
+  const recipe = new Recipe();
+  recipe.info.title = "Lots of steps"
+  recipe.ingredients = cookies().ingredients;
+  
+  recipe.instructions = Array.from({ length: 10 }, (v, k) => new Instruction(`Step at index ${ k }`))
+  return recipe
+}

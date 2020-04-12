@@ -1,7 +1,7 @@
 import React from 'react';
 import { Instruction } from "../../models/Models";
 import { RootState } from "../../redux/rootReducer";
-import { Currentness, getCurrentness } from "../../redux/selectors/cookingSession.selectors";
+import { Currentness, getShouldShowStep } from "../../redux/selectors/cookingSession.selectors";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 
@@ -10,27 +10,28 @@ import styled from "@emotion/styled";
 
 type Props = {
   step: Instruction
-  currentness?: Currentness
+  currentness?: Currentness,
+  number: number
 }
 const StepWrapper = styled.div<{ currentness: Currentness }>({
   width: '100%',
   height: '100px',
-  position: 'absolute',
+  position: 'relative',
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   transition: '0.5s ease',
-}, ({ currentness }) => ({ left: currentness * 100 + '%' }))
+}, ({ currentness }) => ({ top: currentness * 100 + '%' }))
 
-export const CookingStep = ({ step, currentness }: Props) =>
+export const CookingStep = ({ step, currentness, number }: Props) =>
   <StepWrapper currentness={ currentness! }
-               children={ step.text }
+               children={ `${ number }. ${ step.text }` }
   />
 
 /* CONTAINER */
 
 const selectProps = (state: RootState, ownProps: Props) =>
-  ({ currentness: getCurrentness(ownProps.step)(state) })
+  ({ currentness: getShouldShowStep(ownProps.step)(state) })
 
 const CookingStepContainer = connect(selectProps)(CookingStep)
 

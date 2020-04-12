@@ -1,9 +1,9 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import rootReducer from './rootReducer'
 import { initialCookingSessionState } from "./cookingSessionSlice";
-import { cookies } from "../data/sampleRecipes";
+import { manySteps } from "../data/sampleRecipes";
 
-const { ingredients, instructions, info: recipeInfo } = cookies();
+const { ingredients, instructions, info: recipeInfo } = manySteps();
 
 const store = configureStore({
   reducer: rootReducer,
@@ -11,7 +11,8 @@ const store = configureStore({
     cookingSession: {
       ...initialCookingSessionState,
       ingredients, instructions, recipeInfo
-    }
+    },
+    prefs: { displayedSteps: 3 }
   },
   middleware: getDefaultMiddleware().slice(0, 1) // leave out the middleware that checks for a serializable state.
 });
