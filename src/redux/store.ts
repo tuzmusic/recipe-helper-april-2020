@@ -10,7 +10,7 @@ const store = configureStore({
   preloadedState: {
     cookingSession: {
       ...initialCookingSessionState,
-      ingredients, instructions, recipeInfo
+      ingredients, instructions, recipeInfo, currentStepIndex: 1
     },
     prefs: { displayedSteps: 5 }
   },

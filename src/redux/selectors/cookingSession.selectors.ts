@@ -54,15 +54,20 @@ export const getShouldShowStep = (step: Instruction) => {
         if (step instanceof FillerStep) {
           return (thisDisplayIndex < currentIndex) ? Currentness.Past : Currentness.Current;
         } else {
-          // first index to be visible
-          // const firstCurrent = Math.max(0, currentIndex - Math.floor(stepsCount / 2));
-          // ** These actually both appear to work, as far as that goes
-          const firstCurrent = Math.max(0, currentIndex - indexAtWhichToDisplayCurrentStep);
-          
+          const firstCurrent = currentIndex;
+          const numberOfFillerSteps = displayedSteps.filter(s => s instanceof FillerStep).length
           // index of the first future step
-          const firstFuture = firstCurrent + stepsCount;
+          const lastCurrent = firstCurrent + stepsCount - 1// + (numberOfFillerSteps - currentIndex);
+          console.table({
+            indexAtWhichToDisplayCurrentStep,
+            currentIndex,
+            numberOfFillerSteps,
+            firstCurrent,
+            lastCurrent
+          })
+  
           if (thisDisplayIndex < firstCurrent) return Currentness.Past;
-          if (thisDisplayIndex >= firstFuture) return Currentness.Future;
+          if (thisDisplayIndex > lastCurrent) return Currentness.Future;
           return Currentness.Current;
         }
       }

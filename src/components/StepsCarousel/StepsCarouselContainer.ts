@@ -19,6 +19,7 @@ const select = (state: RootState) => {
     currentStepIndex: selectCurrentStepIndex(state),
     indexAtWhichToDisplayCurrentStep: getAtWhichIndexToDisplayTheCurrentStep(state)
   };
+  return props
   // console.table(props.steps)
   console.table(
     props.steps.map(step => ({
