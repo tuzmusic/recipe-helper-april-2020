@@ -1,7 +1,12 @@
 import React from 'react';
-import { Instruction } from "../../models/Models";
+import { FillerStep, Instruction } from "../../models/Models";
 import { RootState } from "../../redux/rootReducer";
-import { Currentness, getShouldShowStep } from "../../redux/selectors/cookingSession.selectors";
+import {
+  Currentness,
+  getIsStepTheCurrentStep,
+  getNumberForStep,
+  getShouldShowStep
+} from "../../redux/selectors/cookingSession.selectors";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 
@@ -10,28 +15,48 @@ import styled from "@emotion/styled";
 
 type Props = {
   step: Instruction
-  currentness?: Currentness,
-  number: number
+  pos?: Currentness
+  number?: number
+  isCurrentStep?: boolean
 }
-const StepWrapper = styled.div<{ currentness: Currentness }>({
+export const StepWrapper = styled.div<{ pos: Currentness, isCurrent: boolean }>({
   width: '100%',
   height: '100px',
-  position: 'relative',
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  transition: '0.5s ease',
-}, ({ currentness }) => ({ top: currentness * 100 + '%' }))
+  transition: '0.75s ease',
+}, ({ pos, isCurrent }) => ({
+  fontWeight: isCurrent ? 'bold' : 'normal',
+  fontSize: isCurrent ? 'x-large' : 'medium',
+  top: pos * 100 + '%',
+  position: pos === Currentness.Current ? 'relative' : 'absolute'
+}))
 
-export const CookingStep = ({ step, currentness, number }: Props) =>
-  <StepWrapper currentness={ currentness! }
-               children={ `${ number }. ${ step.text }` }
-  />
+const FillerDiv = styled.div<{ pos: Currentness }>({
+    height: '100px',
+    border: 'solid blue thin',
+    margin: '1px',
+    width: '100%'
+  }, ({ pos }) => ({
+    top: pos * 100 + '%',
+    position: pos === Currentness.Current ? 'relative' : 'absolute'
+  })
+)
+export const CookingStep = ({ step, pos, number, isCurrentStep }: Props) =>
+  (step instanceof FillerStep) ? <FillerDiv pos={ pos! }/> :
+    <StepWrapper pos={ pos! }
+                 children={ `${ number! }. ${ step.text }` }
+                 isCurrent={ isCurrentStep! }
+    />
 
-/* CONTAINER */
+/* REDUX CONTAINER */
 
-const selectProps = (state: RootState, ownProps: Props) =>
-  ({ currentness: getShouldShowStep(ownProps.step)(state) })
+const selectProps = (state: RootState, { step }: Props) => ({
+  pos: getShouldShowStep(step)(state),
+  isCurrentStep: getIsStepTheCurrentStep(step)(state),
+  number: getNumberForStep(step)(state)
+})
 
 const CookingStepContainer = connect(selectProps)(CookingStep)
 

@@ -32,21 +32,24 @@ type Props = {
   steps: Instruction[]
   incStep: ClickHandler
   decStep: ClickHandler
+  currentStepIndex: number
+  indexAtWhichToDisplayCurrentStep: number
 }
 
 const ArrowsWrapper = styled(CenterFlexColumn)()
 
-const StepsCarousel = ({ steps, incStep, decStep }: Props) =>
-  <CarouselWrapper>
+const StepsCarousel = ({ steps, incStep, decStep, currentStepIndex, indexAtWhichToDisplayCurrentStep }: Props) => {
+  return <CarouselWrapper>
     <StepsWrapper>{
       steps.map((step, i) =>
-        <CookingStepContainer step={ step } number={ i + 1 } key={ i }/>
+        <CookingStepContainer step={ step } key={ i }/>
       )
     }</StepsWrapper>
     <ArrowsWrapper>
       <Arrow onClick={ decStep } vMargin>{ "⬆" }</Arrow>
       <Arrow onClick={ incStep } vMargin>{ "⬇" }</Arrow>
     </ArrowsWrapper>
-  </CarouselWrapper>
+  </CarouselWrapper>;
+}
 
 export default StepsCarousel

@@ -12,7 +12,7 @@ const store = configureStore({
       ...initialCookingSessionState,
       ingredients, instructions, recipeInfo
     },
-    prefs: { displayedSteps: 3 }
+    prefs: { displayedSteps: 5 }
   },
   middleware: getDefaultMiddleware().slice(0, 1) // leave out the middleware that checks for a serializable state.
 });

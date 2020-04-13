@@ -20,6 +20,10 @@ export class Instruction {
   // ingredients: Ingredient[] = [];
 }
 
+export class FillerStep extends Instruction {
+  constructor(public fillerIndex: number) {super('');}
+}
+
 export class Ingredient {
   id: string = "";
   state: IngredientState = {
