@@ -4,35 +4,15 @@ import StepsCarousel from "./StepsCarousel";
 import {
   getActualStepsToDisplay,
   getAtWhichIndexToDisplayTheCurrentStep,
-  getDisplayedIndexForStep,
-  getIndexForStep,
-  getShouldShowStep,
   selectCurrentStepIndex
 } from "../../redux/selectors/cookingSession.selectors";
 import { decStep, incStep } from "../../redux/cookingSessionSlice";
-import { FillerStep } from "../../models/Models";
 
-const select = (state: RootState) => {
-  
-  let props = {
-    steps: getActualStepsToDisplay(state),
-    currentStepIndex: selectCurrentStepIndex(state),
-    indexAtWhichToDisplayCurrentStep: getAtWhichIndexToDisplayTheCurrentStep(state)
-  };
-  return props
-  // console.table(props.steps)
-  console.table(
-    props.steps.map(step => ({
-      currentIndex: selectCurrentStepIndex(state),
-      currentness: getShouldShowStep(step)(state),
-      recipeIndex: getIndexForStep(step)(state),
-      displayIndex: getDisplayedIndexForStep(step)(state),
-      isFiller: step instanceof FillerStep,
-      fillerIndex: (step as FillerStep)?.fillerIndex
-    }))
-  )
-  return props;
-}
+const select = (state: RootState) => ({
+  steps: getActualStepsToDisplay(state),
+  currentStepIndex: selectCurrentStepIndex(state),
+  indexAtWhichToDisplayCurrentStep: getAtWhichIndexToDisplayTheCurrentStep(state)
+})
 
 const actions = { decStep, incStep }
 

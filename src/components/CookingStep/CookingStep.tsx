@@ -25,7 +25,7 @@ export const StepWrapper = styled.div<{ pos: Currentness, isCurrent: boolean }>(
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  transition: '0.75s ease',
+  transition: 'font-size 0.75s ease',
 }, ({ pos, isCurrent }) => ({
   fontWeight: isCurrent ? 'bold' : 'normal',
   fontSize: isCurrent ? 'x-large' : 'medium',

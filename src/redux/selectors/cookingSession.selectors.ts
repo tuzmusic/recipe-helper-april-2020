@@ -33,61 +33,32 @@ export const getDisplayedIndexForStep = (step: Instruction) => {
 
 export const getShouldShowStep = (step: Instruction) => {
   return createSelector(
-    selectAllSteps,
-    getActualStepsToDisplay,
     selectCurrentStepIndex,
     getIndexForStep(step),
     getDisplayedIndexForStep(step),
     selectDisplayedStepsCount,
-    getAtWhichIndexToDisplayTheCurrentStep, (
-      recipeSteps,
-      displayedSteps,
+    getAtWhichIndexToDisplayTheCurrentStep,
+    selectAllSteps, (
       currentIndex,
       thisRecipeIndex,
       thisDisplayIndex,
-      stepsCount,
-      indexAtWhichToDisplayCurrentStep
+      dispStepsCount,
+      indexAtWhichToDisplayCurrentStep,
+      recipeSteps
     ): Currentness => {
-      
-      // if we still need to show filler steps
-      if (currentIndex < indexAtWhichToDisplayCurrentStep) {
-        if (step instanceof FillerStep) {
-          return (thisDisplayIndex < currentIndex) ? Currentness.Past : Currentness.Current;
-        } else {
-          const firstCurrent = currentIndex;
-          const numberOfFillerSteps = displayedSteps.filter(s => s instanceof FillerStep).length
-          // index of the first future step
-          const lastCurrent = firstCurrent + stepsCount - 1// + (numberOfFillerSteps - currentIndex);
-          console.table({
-            indexAtWhichToDisplayCurrentStep,
-            currentIndex,
-            numberOfFillerSteps,
-            firstCurrent,
-            lastCurrent
-          })
-  
-          if (thisDisplayIndex < firstCurrent) return Currentness.Past;
-          if (thisDisplayIndex > lastCurrent) return Currentness.Future;
-          return Currentness.Current;
-        }
-      }
-      
-      // if all the filler steps are already past
-      else /* if (currentIndex >= indexAtWhichToDisplayCurrentStep) */{
-        if (step instanceof FillerStep) return Currentness.Past
-        
-        // first index to be visible
-        const firstCurrent = Math.max(0, currentIndex - Math.floor(stepsCount / 2));
-        // ** These actually both appear to work, as far as that goes
-        // const firstCurrent = Math.max(0, currentIndex - indexAtWhichToDisplayCurrentStep);
-        
-        // index of the first future step
-        const firstFuture = firstCurrent + stepsCount;
-        if (thisRecipeIndex < firstCurrent) return Currentness.Past;
-        if (thisRecipeIndex >= firstFuture) return Currentness.Future;
-        return Currentness.Current;
-      }
-      
+    
+      const showingFillersStepsAtStart = currentIndex < indexAtWhichToDisplayCurrentStep;
+      const showingFillerStepsAtEnd = currentIndex > (recipeSteps.length - indexAtWhichToDisplayCurrentStep - 1)
+      const showingFillerSteps = showingFillersStepsAtStart || showingFillerStepsAtEnd;
+      const firstCurrent = showingFillerSteps
+        ? currentIndex
+        : Math.max(0, currentIndex - indexAtWhichToDisplayCurrentStep);
+      const lastCurrent = firstCurrent + dispStepsCount - 1
+    
+      const relevantIndex = showingFillerSteps ? thisDisplayIndex : thisRecipeIndex
+      if (relevantIndex < firstCurrent) return Currentness.Past;
+      if (relevantIndex > lastCurrent) return Currentness.Future;
+      else return Currentness.Current;
     });
 }
 
@@ -99,21 +70,20 @@ export const getAtWhichIndexToDisplayTheCurrentStep = createSelector(selectDispl
   }
 )
 
-export const getActualStepsToDisplay = createSelector(selectAllSteps, selectDisplayedStepsCount, getAtWhichIndexToDisplayTheCurrentStep,
-  (steps, stepsCount, fillerStepsNeeded): Instruction[] => {
+export const getActualStepsToDisplay = createSelector(selectAllSteps, getAtWhichIndexToDisplayTheCurrentStep,
+  (steps, fillerStepsNeeded): Instruction[] => {
     // In order to always have the current step in the middle,
     // (e.g., to prevent the first step from showing at the top
     // instead of the middle when it's the current step)
     // we need to insert "filler" steps above the first step.
-    
+    const createFillerStepsArray = (): FillerStep[] =>
+      Array.from({ length: fillerStepsNeeded }, (_, i) => new FillerStep(Math.random()));
     // add filler steps as needed
-    const fillerStepsArray = (fillerStepsNeeded > 0) ?
-      Array.from({ length: fillerStepsNeeded }, (_, i) => new FillerStep(i - fillerStepsNeeded))
-      // Array(fillerStepsNeeded).fill(new FillerStep())
-      : [];
+    const fillerStepsArray = (fillerStepsNeeded <= 0) ? [] :
+      Array.from({ length: fillerStepsNeeded }, (_, i) => new FillerStep(i - fillerStepsNeeded));
     
     // add the current steps
-    return [...fillerStepsArray, ...steps];
+    return [...createFillerStepsArray(), ...steps, ...createFillerStepsArray()]//, ...fillerStepsArray];
   }
 )
 
