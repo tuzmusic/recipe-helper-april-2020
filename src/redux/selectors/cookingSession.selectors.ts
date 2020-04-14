@@ -31,6 +31,12 @@ export const getDisplayedIndexForStep = (step: Instruction) => {
   )
 }
 
+export const getNumberForStep = (step: Instruction) => {
+  return createSelector(getIndexForStep(step),
+    (index): number => index + 1
+  )
+}
+
 export const getShouldShowStep = (step: Instruction) => {
   return createSelector(
     selectCurrentStepIndex,
@@ -43,18 +49,23 @@ export const getShouldShowStep = (step: Instruction) => {
       thisRecipeIndex,
       thisDisplayIndex,
       dispStepsCount,
-      indexAtWhichToDisplayCurrentStep,
+      fillerStepsCount,
       recipeSteps
     ): Currentness => {
-    
-      const showingFillersStepsAtStart = currentIndex < indexAtWhichToDisplayCurrentStep;
-      const showingFillerStepsAtEnd = currentIndex > (recipeSteps.length - indexAtWhichToDisplayCurrentStep - 1)
+      
+      // are we at the beginning or and and need to show the filler steps?
+      const showingFillersStepsAtStart = currentIndex < fillerStepsCount;
+      const showingFillerStepsAtEnd = currentIndex >= (recipeSteps.length - fillerStepsCount)
       const showingFillerSteps = showingFillersStepsAtStart || showingFillerStepsAtEnd;
+      
+      // get the indexes of the top and bottom displayed steps
       const firstCurrent = showingFillerSteps
         ? currentIndex
-        : Math.max(0, currentIndex - indexAtWhichToDisplayCurrentStep);
+        : Math.max(0, currentIndex - fillerStepsCount);
       const lastCurrent = firstCurrent + dispStepsCount - 1
-    
+      
+      // determine position based on whether the step is between the top and bottom displayed step,
+      // using the relevant index depending on whether we're showing the filter steps.
       const relevantIndex = showingFillerSteps ? thisDisplayIndex : thisRecipeIndex
       if (relevantIndex < firstCurrent) return Currentness.Past;
       if (relevantIndex > lastCurrent) return Currentness.Future;
@@ -76,21 +87,16 @@ export const getActualStepsToDisplay = createSelector(selectAllSteps, getAtWhich
     // (e.g., to prevent the first step from showing at the top
     // instead of the middle when it's the current step)
     // we need to insert "filler" steps above the first step.
+  
+    // to get the right index of the otherwise-identical filler steps (we need it in
+    // getDisplayedIndexForStep), we need *some* different value in each one.
     const createFillerStepsArray = (): FillerStep[] =>
       Array.from({ length: fillerStepsNeeded }, (_, i) => new FillerStep(Math.random()));
-    // add filler steps as needed
-    const fillerStepsArray = (fillerStepsNeeded <= 0) ? [] :
-      Array.from({ length: fillerStepsNeeded }, (_, i) => new FillerStep(i - fillerStepsNeeded));
-    
-    // add the current steps
-    return [...createFillerStepsArray(), ...steps, ...createFillerStepsArray()]//, ...fillerStepsArray];
+  
+    // pad the current steps with the filler steps and return
+    return [createFillerStepsArray(), steps, createFillerStepsArray()].flat()
   }
 )
-
-export const getNumberForStep = (step: Instruction) => {
-  return createSelector(selectAllSteps,
-    (steps): number => steps.indexOf(step) + 1)
-}
 
 export const getIsStepTheCurrentStep = (step: Instruction) => {
   return createSelector(selectAllSteps, selectCurrentStepIndex,
