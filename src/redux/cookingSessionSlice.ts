@@ -26,7 +26,12 @@ const cookingSessionSlice = createSlice({
   
       state.instructions.forEach(({ timers }, stepIndex) => {
         timers.forEach(timer =>
-          state.stepTimers.push({ ...timer, stepIndex, state: CookingTimerState.Pending })
+          state.stepTimers.push({
+            ...timer,
+            timerId: state.stepTimers.length,
+            stepIndex,
+            state: CookingTimerState.Pending,
+          })
         )
       })
     },
@@ -43,7 +48,7 @@ const cookingSessionSlice = createSlice({
       if (stepNum >= 0 && stepNum < state.instructions.length)
         state.currentStepIndex = stepNum
     },
-    
+  
     toggleIngredientState(state, { payload }:
       PayloadAction<{ ingredient: Ingredient, stateKey: keyof IngredientState }>) {
       const { ingredient, stateKey } = payload;
@@ -51,14 +56,12 @@ const cookingSessionSlice = createSlice({
       //  its info. or something like that.
       ingredient.state[stateKey] = !ingredient.state[stateKey]
     },
-    
+  
     // todo: timer actions
-    startTimer(state, { payload: timer }: PayloadAction<CookingTimer>) {
-      // timer.start()
-      state.activeTimers.push(timer)
-  
-      const thisTimer: CookingTimer = state.activeTimers.find(t => t === timer)!
-  
+    startTimer(state, { payload: timer }: PayloadAction<StepTimer>) {
+      state.stepTimers
+        .find(t => t.timerId === timer.timerId)!
+        .state = CookingTimerState.Running
     },
     pauseTimer(state, { payload: timer }: PayloadAction<CookingTimer>) {
       // timer.stop()

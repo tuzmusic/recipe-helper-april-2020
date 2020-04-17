@@ -6,7 +6,9 @@ import { connect } from "react-redux";
 import { startRecipe } from '../redux/cookingSessionSlice';
 import { cookies } from "../data/sampleRecipes";
 import { RootState } from "../redux/rootReducer";
+import { setAutoFreeze } from 'immer';
 
+setAutoFreeze(false);
 const AppWrapper = styled(CenterFlexRow)({})
 
 class App extends React.Component<any> {

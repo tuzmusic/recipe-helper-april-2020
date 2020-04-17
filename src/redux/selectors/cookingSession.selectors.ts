@@ -1,6 +1,6 @@
 import { RootState } from "../rootReducer";
 import { createSelector } from "@reduxjs/toolkit";
-import { FillerStep, Instruction, StepTimer } from "../../models/Models";
+import { CookingTimerState, FillerStep, Instruction, StepTimer } from "../../models/Models";
 import { CookingSessionState } from "../cookingSessionSlice";
 
 export enum Currentness {
@@ -17,13 +17,15 @@ export const selectCurrentStepIndex = (state: RootState): number => state.cookin
 export const selectCurrentStep = createSelector(selectAllSteps, selectCurrentStepIndex, (steps, i): Instruction => steps[i])
 export const selectDisplayedStepsCount = (state: RootState): number => state.prefs.displayedSteps
 
-// export const selectCurrentStepTimers = createSelector(selectCurrentStep, ({ timers }): CookingTimer[] => timers)
-
 export const selectCurrentStepTimers =
   createSelector(selectCurrentStepIndex, selectAllTimers,
     (stepIndex, timers): StepTimer[] => timers.filter(
-      timer => timer.stepIndex === stepIndex
+      timer => timer.stepIndex === stepIndex && timer.state === CookingTimerState.Pending
     ))
+
+export const getActiveTimers = createSelector(selectAllTimers,
+  (timers): StepTimer[] => timers.filter(t => t.state !== CookingTimerState.Pending)
+)
 
 export const getIndexForStep = (step: Instruction) => {
   return createSelector(selectAllSteps,

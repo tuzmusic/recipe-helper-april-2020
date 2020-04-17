@@ -34,7 +34,6 @@ const StepTimerComponent = ({ timer, startTimer }: Props) => {
         >
           { ({ start, stop, reset, getTime, ...timerProps }: any) =>
             <CenterFlexRow>
-              { console.log(getTime()) }
               { getTime() <= 0 ? "Done!" :
                 <DurationWrapper>
                   <Timer.Minutes/>:

@@ -47,6 +47,7 @@ export class CookingTimer {
 } // & TimerApiType
 
 export type StepTimer = {
+  timerId: number
   state: CookingTimerState
   durationSec: number
   label: string
