@@ -7,13 +7,14 @@ const { ingredients, instructions, info: recipeInfo } = cookies();
 
 const store = configureStore({
   reducer: rootReducer,
-  preloadedState: {
-    cookingSession: {
-      ...initialCookingSessionState,
-      ingredients, instructions, recipeInfo//, currentStepIndex: 1
-    },
-    prefs: { displayedSteps: 3 }
-  },
+  preloadedState: { cookingSession: initialCookingSessionState },
+  // preloadedState: {
+  //   cookingSession: {
+  //     ...initialCookingSessionState,
+  //     ingredients, instructions, recipeInfo//, currentStepIndex: 1
+  //   },
+  //   prefs: { displayedSteps: 3 }
+  // },
   middleware: getDefaultMiddleware().slice(0, 1) // leave out the middleware that checks for a serializable state.
 });
 

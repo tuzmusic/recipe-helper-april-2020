@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CookingSessionState, IngredientState } from "./state/stateMap";
-import { CookingTimer, Ingredient, Recipe } from "../models/Models";
+import { IngredientState, RecipeInfo } from "./state/stateMap";
+import { CookingTimer, CookingTimerState, Ingredient, Instruction, Recipe, StepTimer } from "../models/Models";
 
-export const initialCookingSessionState: CookingSessionState = {
-  recipeInfo: null,
-  instructions: [],
-  ingredients: [],
-  activeTimers: [],
-  currentStepIndex: 0
+export const initialCookingSessionState = {
+  recipeInfo: null as RecipeInfo | null,
+  instructions: [] as Instruction[],
+  ingredients: [] as Ingredient[],
+  activeTimers: [] as CookingTimer[],
+  currentStepIndex: 0 as number,
+  stepTimers: [] as StepTimer[]
 };
+export type CookingSessionState = typeof initialCookingSessionState
 
 const cookingSessionSlice = createSlice({
   name: 'session',
@@ -19,6 +21,14 @@ const cookingSessionSlice = createSlice({
       state.recipeInfo = info;
       state.ingredients = [...ingredients];
       state.instructions = [...instructions]
+  
+      state.stepTimers = [];
+  
+      state.instructions.forEach(({ timers }, stepIndex) => {
+        timers.forEach(timer =>
+          state.stepTimers.push({ ...timer, stepIndex, state: CookingTimerState.Pending })
+        )
+      })
     },
     
     incStep(state) {
@@ -46,6 +56,9 @@ const cookingSessionSlice = createSlice({
     startTimer(state, { payload: timer }: PayloadAction<CookingTimer>) {
       // timer.start()
       state.activeTimers.push(timer)
+  
+      const thisTimer: CookingTimer = state.activeTimers.find(t => t === timer)!
+  
     },
     pauseTimer(state, { payload: timer }: PayloadAction<CookingTimer>) {
       // timer.stop()

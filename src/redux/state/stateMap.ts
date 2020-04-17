@@ -1,5 +1,3 @@
-import { CookingTimer, Ingredient, Instruction } from "../../models/Models";
-
 interface CookingAPI {
   startRecipe(r: Recipe): void // copies info, instr, ings, from recipe to session
   
@@ -20,15 +18,6 @@ interface CookingAPI {
   
   // stops the timer (if it's still going) and removes it from activeTimers
   clearTimer(t: _CookingTimer): void
-}
-
-// reducer
-export type CookingSessionState = {
-  recipeInfo: RecipeInfo | null
-  instructions: Instruction[]
-  ingredients: Ingredient[]
-  activeTimers: CookingTimer[]
-  currentStepIndex: number
 }
 
 export type RecipeInfo = {

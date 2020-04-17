@@ -1,7 +1,7 @@
 import { RootState } from "../rootReducer";
 import { createSelector } from "@reduxjs/toolkit";
 import { CookingTimer, FillerStep, Instruction } from "../../models/Models";
-import { CookingSessionState } from "../state/stateMap";
+import { CookingSessionState } from "../cookingSessionSlice";
 
 export enum Currentness {
   Past = -1,

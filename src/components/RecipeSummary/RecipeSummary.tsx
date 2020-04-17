@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
-import { CookingSessionState } from "../../redux/state/stateMap";
 import React from "react";
 import styled from "@emotion/styled";
+import { CookingSessionState } from "../../redux/cookingSessionSlice";
 
 const TextWrapper = styled.div({
   padding: '10px'

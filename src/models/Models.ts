@@ -33,16 +33,22 @@ export class Ingredient {
   constructor(public text: string) {}
 }
 
-export class CookingTimer {
-  constructor(
-    public durationSec = 0,
-    public label = "",
-    public state: CookingTimerState = CookingTimerState.Pending) {}
-} // & TimerApiType
-
 export enum CookingTimerState {
   Pending,
   Paused,
   Running,
   Done
+}
+
+export class CookingTimer {
+  constructor(
+    public durationSec = 0,
+    public label = "") {}
+} // & TimerApiType
+
+export type StepTimer = {
+  state: CookingTimerState
+  durationSec: number
+  label: string
+  stepIndex: number
 }

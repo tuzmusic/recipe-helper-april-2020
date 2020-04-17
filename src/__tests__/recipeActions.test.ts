@@ -1,6 +1,7 @@
 import { cookies } from "../data/sampleRecipes";
 import cookingSession, {
   clearTimer,
+  CookingSessionState,
   decStep,
   goToStep,
   incStep,
@@ -10,7 +11,6 @@ import cookingSession, {
   toggleDone,
   toggleIngredientState
 } from '../redux/cookingSessionSlice'
-import { CookingSessionState } from "../redux/state/stateMap";
 import { CookingTimer } from "../models/Models";
 
 describe('recipe model and actions', () => {

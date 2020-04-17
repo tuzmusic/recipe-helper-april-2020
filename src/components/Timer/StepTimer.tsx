@@ -51,7 +51,7 @@ const StepTimerComponent = ({ timer, startTimer }: Props) => {
           }
         </Timer>
       </StepTimer>
-      { timer.label } ({ timer.state })
+      { timer.label }
     </TimerWrapper>
   );
 }
