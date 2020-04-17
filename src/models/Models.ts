@@ -34,5 +34,15 @@ export class Ingredient {
 }
 
 export class CookingTimer {
-  constructor(public durationSec = 0, public label = "") {}
+  constructor(
+    public durationSec = 0,
+    public label = "",
+    public state: CookingTimerState = CookingTimerState.Pending) {}
 } // & TimerApiType
+
+export enum CookingTimerState {
+  Pending,
+  Paused,
+  Running,
+  Done
+}

@@ -26,6 +26,7 @@ export const StepWrapper = styled.div<{ pos: Currentness, isCurrent: boolean }>(
   justifyContent: 'flex-start',
   alignItems: 'center',
   transition: 'font-size 0.75s ease',
+  // transition: 'top 2s ease',
 }, ({ pos, isCurrent }) => ({
   fontWeight: isCurrent ? 'bold' : 'normal',
   fontSize: isCurrent ? 'x-large' : 'medium',
@@ -35,7 +36,7 @@ export const StepWrapper = styled.div<{ pos: Currentness, isCurrent: boolean }>(
 
 const FillerDiv = styled.div<{ pos: Currentness }>({
     height: '100px',
-    border: 'solid blue thin',
+  // border: 'solid blue thin',
     margin: '1px',
     width: '100%'
   }, ({ pos }) => ({
@@ -44,11 +45,11 @@ const FillerDiv = styled.div<{ pos: Currentness }>({
   })
 )
 export const CookingStep = ({ step, pos, number, isCurrentStep }: Props) =>
-  (step instanceof FillerStep) ? <FillerDiv pos={ pos! }/> :
-    <StepWrapper pos={ pos! }
-                 children={ `${ number! }. ${ step.text }` }
-                 isCurrent={ isCurrentStep! }
-    />
+  (step instanceof FillerStep) ?
+    <FillerDiv pos={ pos! }/> :
+    <StepWrapper pos={ pos! } isCurrent={ isCurrentStep! }>
+      { number! }. { step.text }
+    </StepWrapper>
 
 /* REDUX CONTAINER */
 
