@@ -1,8 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import rootReducer from './rootReducer'
-import { cookies } from "../data/sampleRecipes";
-
-const { ingredients, instructions, info: recipeInfo } = cookies();
 
 const store = configureStore({
   reducer: rootReducer,

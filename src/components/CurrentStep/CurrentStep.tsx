@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from "react-redux";
-import StepTimersContainer from "./StepTimers";
 import StepsCarouselContainer from "../StepsCarousel/StepsCarouselContainer";
 import styled from "@emotion/styled";
 import { CenterFlexColumn, CenterFlexRow } from "../UtilityComponents";
-import { ActiveTimersContainer } from "../ActiveTimers/ActiveTimersContainer";
+import ActiveTimersContainer from "../ActiveTimers/ActiveTimersContainer";
+import StepTimersContainer from "./StepTimersContainer";
 
 const CurrentStepWrapper = styled(CenterFlexColumn)({
   width: '100%'

@@ -3,12 +3,16 @@ import React from "react";
 import styled from "@emotion/styled";
 import Timer from "react-compound-timer";
 import { CenterFlexRow } from "../UtilityComponents";
-import { AppDispatch } from "../../redux/store";
 import { setTimerState } from "../../redux/cookingSessionSlice";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const TimerWrapper = styled.div({
+const TimerWrapper = styled.div({})
+
+const TimerLabel = styled.div({
   textAlign: 'center',
+  fontFamily: 'sans-serif',
+  fontSize: '14px',
+  paddingBottom: 3
 })
 
 const StepTimerButton = styled.button({
@@ -18,17 +22,21 @@ const StepTimerButton = styled.button({
   display: 'block',
   fontSize: 18
 })
+
 const DurationWrapper = styled(CenterFlexRow)({
   width: '100%',
 })
 
 type Props = {
   timer: StepTimer
-  startTimer?: any // FIXME
+  startTimer: () => void
 };
+
 const StepTimerComponent = ({ timer, startTimer }: Props) =>
   <TimerWrapper>
-    { timer.label }
+    <TimerLabel>
+      { timer.label }
+    </TimerLabel>
     <StepTimerButton onClick={ startTimer }>
       <Timer direction="backward" initialTime={ timer.durationSec * 1000 }
              startImmediately={ timer.state === CookingTimerState.Running }
@@ -45,9 +53,13 @@ const StepTimerComponent = ({ timer, startTimer }: Props) =>
     </StepTimerButton>
   </TimerWrapper>
 
-const actions = (dispatch: AppDispatch, { timer }: Props) => ({
-  startTimer: () => dispatch(setTimerState({ timer, timerState: CookingTimerState.Running }))
-})
-
-const StepTimerContainer = connect(null, actions)(StepTimerComponent)
+const StepTimerContainer = ({ timer }: { timer: StepTimer }) => {
+  const dispatch = useDispatch();
+  
+  return <StepTimerComponent
+    timer={ timer }
+    startTimer={ () =>
+      dispatch(setTimerState({ timer, timerState: CookingTimerState.Running }))
+    }/>
+}
 export default StepTimerContainer
