@@ -5,7 +5,7 @@ type PrefsState = {
 }
 
 const initialPrefsState: PrefsState = {
-  displayedSteps: 1
+  displayedSteps: 3
 }
 
 const prefsSlice = createSlice({

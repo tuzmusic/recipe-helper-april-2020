@@ -41,9 +41,7 @@ const ArrowsWrapper = styled(CenterFlexColumn)()
 const StepsCarousel = ({ steps, incStep, decStep, currentStepIndex, indexAtWhichToDisplayCurrentStep }: Props) => {
   return <CarouselWrapper>
     <StepsWrapper>{
-      steps.map((step, i) =>
-        <CookingStepContainer step={ step } key={ i }/>
-      )
+      steps.map((step, i) => <CookingStepContainer step={ step } key={ i }/>)
     }</StepsWrapper>
     <ArrowsWrapper>
       <Arrow onClick={ decStep } vMargin>{ "⬆" }</Arrow>
