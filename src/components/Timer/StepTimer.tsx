@@ -33,13 +33,15 @@ const StepTimerComponent = ({ timer, startTimer }: Props) =>
       <Timer direction="backward"
              initialTime={ timer.durationSec * 1000 }
              startImmediately={ timer.state === CookingTimerState.Running }
-      >
-        <CenterFlexRow>
-          <DurationWrapper>
-            <Timer.Minutes/>:
-            <Timer.Seconds formatValue={ (v: number) => `${ v }`.padStart(2, "0") }/>
-          </DurationWrapper>
-        </CenterFlexRow>
+      >{/* Any actual whitespace between the closing carat and the opening brace will BREAK the timer display */ }
+        { ({ start, resume, pause, stop, reset, timerState }: any) =>
+          <CenterFlexRow>
+            <DurationWrapper>
+              <Timer.Minutes/>:
+              <Timer.Seconds formatValue={ (v: number) => `${ v }`.padStart(2, "0") }/>
+            </DurationWrapper>
+          </CenterFlexRow>
+        }{/* Any actual whitespace between the closing carat and the opening brace will BREAK the timer display */ }
       </Timer>
     </StepTimerButton>
   </TimerWrapper>
