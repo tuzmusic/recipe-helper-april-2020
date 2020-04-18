@@ -7,7 +7,6 @@ import cookingSession, {
   incStep,
   initialCookingSessionState,
   startRecipe,
-  startTimer,
   toggleDone,
   toggleIngredientState
 } from '../redux/cookingSessionSlice'
@@ -97,6 +96,7 @@ describe('recipe model and actions', () => {
       timer = cookieRecipe.instructions[2].timers[0];
       expect(timer.label).toEqual("Bake");
     });
+/*
     describe('startTimer', () => {
       it('adds the timer', () => {
         expect(cookingSession(cookieState, startTimer(timer)).activeTimers)
@@ -106,6 +106,7 @@ describe('recipe model and actions', () => {
       
       });
     });
+*/
     describe('clearTimer', () => {
       xit('stops the timer', () => {
       

@@ -71,7 +71,12 @@ const cookingSessionSlice = createSlice({
       const timers = state.activeTimers;
       timers.splice(timers.indexOf(timer), 1)
     },
-    
+    setTimerState(state, { payload }: PayloadAction<{ timer: StepTimer, timerState: CookingTimerState }>) {
+      const { timer, timerState } = payload
+      state.stepTimers
+        .find(t => t.timerId === timer.timerId)!
+        .state = timerState
+    }
   }
 });
 
@@ -79,6 +84,7 @@ export const {
   startRecipe,
   incStep, decStep, goToStep,
   toggleIngredientState,
+  setTimerState,
   startTimer, clearTimer, pauseTimer
 } = cookingSessionSlice.actions;
 export default cookingSessionSlice.reducer

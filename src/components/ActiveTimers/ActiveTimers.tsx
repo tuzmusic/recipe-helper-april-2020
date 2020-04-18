@@ -1,12 +1,16 @@
-import { CookingTimer } from "../../models/Models";
+import { CookingTimer, StepTimer } from "../../models/Models";
 import React from "react";
 import { CenterFlexColumn } from "../UtilityComponents";
 import StepTimerComponent from "../Timer/StepTimer";
 
-export const ActiveTimers = ({ timers, clearTimer }: { timers: CookingTimer[], clearTimer: (t: CookingTimer) => void }) => {
-  return <CenterFlexColumn bordered padding>
-    { !timers.length ? "No timers." : timers.map((timer, i) =>
+type Props = {
+  timers: StepTimer[],
+  clearTimer: (t: CookingTimer) => void
+}
+
+export const ActiveTimers = ({ timers, clearTimer }: Props) =>
+  <CenterFlexColumn bordered padding> {
+    timers.length ? timers.map((timer, i) =>
       <StepTimerComponent timer={ timer } key={ i }/>
-    ) }
-  </CenterFlexColumn>
-};
+    ) : "No timers."
+  } </CenterFlexColumn>;
