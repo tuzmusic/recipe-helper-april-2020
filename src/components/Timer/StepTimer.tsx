@@ -33,24 +33,14 @@ const StepTimerComponent = ({ timer, startTimer }: Props) =>
       <Timer direction="backward"
              initialTime={ timer.durationSec * 1000 }
              startImmediately={ timer.state === CookingTimerState.Running }
-        // checkpoints={ [{ time: 0, callback: () => {/* handle timer completion */} }] }
-      > {
-        ({ start, stop, reset, getTime, ...timerProps }: any) =>
-          <CenterFlexRow>
-            { getTime() <= 0 ? "Done!" :
-              <DurationWrapper>
-                <Timer.Minutes/>:
-                <Timer.Seconds formatValue={ (v: number) => `${ v }`.padStart(2, "0") }/>
-              </DurationWrapper>
-            }
-            {/*
-          <button onClick={ start }>Start</button>
-          <button onClick={ stop }>Stop</button>
-          <button onClick={ reset }>Reset</button>
-          <button onClick={ () => clearTimer(timer) }>Clear</button>
-*/ }
-          </CenterFlexRow>
-      } </Timer>
+      >
+        <CenterFlexRow>
+          <DurationWrapper>
+            <Timer.Minutes/>:
+            <Timer.Seconds formatValue={ (v: number) => `${ v }`.padStart(2, "0") }/>
+          </DurationWrapper>
+        </CenterFlexRow>
+      </Timer>
     </StepTimerButton>
   </TimerWrapper>
 
