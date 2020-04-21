@@ -1,10 +1,11 @@
-import { CenterFlexRow } from "../UtilityComponents";
+import { CenterFlexColumn, CenterFlexRow } from "../UtilityComponents";
 import { PrintedRecipeContainer } from "../RecipeSummary/RecipeSummary";
 import CookingActivityContainer from "../CookingActivity/CookingActivity";
 import React from "react";
 import styled from "@emotion/styled";
+import DoneTimersContainer from "../CurrentStep/DoneTimersContainer";
 
-const SessionWrapper = styled(CenterFlexRow)({
+const SessionWrapper = styled(CenterFlexColumn)({
   width: '100%',
   alignItems: 'flex-start'
 })
@@ -15,15 +16,15 @@ const ActivityWrapper = styled.div({
   width: '100%'
 })
 
-export const CookingSession = () => {
-  return (
-    <SessionWrapper>
+export const CookingSession = () =>
+  <SessionWrapper>
+    <CenterFlexRow style={ { alignItems: 'flex-start' } }>
       <PrintedWrapper>
         <PrintedRecipeContainer/>
       </PrintedWrapper>
       <ActivityWrapper>
         <CookingActivityContainer/>
       </ActivityWrapper>
-    </SessionWrapper>
-  )
-};
+    </CenterFlexRow>
+    <DoneTimersContainer/>
+  </SessionWrapper>

@@ -24,7 +24,12 @@ export const selectCurrentStepTimers =
     ))
 
 export const getActiveTimers = createSelector(selectAllTimers,
-  (timers): StepTimer[] => timers.filter(t => t.state !== CookingTimerState.Pending)
+  (timers): StepTimer[] => timers.filter(t =>
+    t.state !== CookingTimerState.Pending && t.state !== CookingTimerState.Done
+  ))
+
+export const getDingingTimers = createSelector(selectAllTimers,
+  (timers): StepTimer[] => timers.filter(t => t.state === CookingTimerState.Done)
 )
 
 export const getIndexForStep = (step: Instruction) => {
@@ -35,9 +40,7 @@ export const getIndexForStep = (step: Instruction) => {
 
 export const getDisplayedIndexForStep = (step: Instruction) => {
   return createSelector(getActualStepsToDisplay,
-    (steps): number => {
-      return steps.indexOf(step);
-    }
+    (steps): number => steps.indexOf(step)
   )
 }
 

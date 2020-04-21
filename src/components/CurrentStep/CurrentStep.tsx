@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import StepsCarouselContainer from "../StepsCarousel/StepsCarouselContainer";
 import styled from "@emotion/styled";
 import { CenterFlexColumn, CenterFlexRow } from "../UtilityComponents";
-import ActiveTimersContainer from "../ActiveTimers/ActiveTimersContainer";
+import ActiveTimersContainer from "../TIMERS/ActiveTimers/ActiveTimersContainer";
 import StepTimersContainer from "./StepTimersContainer";
 
 const CurrentStepWrapper = styled(CenterFlexColumn)({
@@ -28,7 +28,7 @@ const CurrentStep = () =>
     <CarouselWrapper>
       <StepsCarouselContainer/>
     </CarouselWrapper>
-    
+  
     <TimersWrapper bordered>
       <StepTimersContainer/>
       <ActiveTimersContainer/>

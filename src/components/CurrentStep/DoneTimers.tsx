@@ -6,7 +6,7 @@ import { CenterFlexColumn } from "../UtilityComponents";
 type Props = { timers: StepTimer[] }
 
 export const StepTimers = ({ timers }: Props) =>
-  <CenterFlexColumn padding> {
+  <CenterFlexColumn bordered padding> {
     timers.map((t, i) =>
       <StepTimerContainer key={ i } timer={ t }/>
     )

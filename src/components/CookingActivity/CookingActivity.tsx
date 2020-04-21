@@ -10,10 +10,13 @@ const StepsWrapper = styled(CenterFlexRow)({
   width: '100%',
 })
 const TimersWrapper = styled('div')({})
+
+// todo: move elements around so only the current step is
+//  actually in the current step!
 const CookingActivity = () =>
   <div>
-    {/*<StepsWrapper>*/ }
     <CurrentStepContainer/>
+    {/*<StepsWrapper>*/ }
     {/*</StepsWrapper>*/ }
     {/*<TimersWrapper>*/ }
     {/*  <ActiveTimersContainer/>*/ }
