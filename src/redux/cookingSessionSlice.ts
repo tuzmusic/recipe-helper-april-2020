@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IngredientState, RecipeInfo } from "./state/stateMap";
+import { IngredientState, RecipeInfo, RecipeJSON } from "./state/stateMap";
 import { CookingTimer, CookingTimerState, Ingredient, Instruction, Recipe, StepTimer } from "../models/Models";
 import { getActiveTimers } from "./selectors/cookingSession.selectors";
 
@@ -17,26 +17,15 @@ const cookingSessionSlice = createSlice({
   name: 'session',
   initialState: initialCookingSessionState,
   reducers: {
-    startRecipe(state, { payload: recipe }: PayloadAction<Recipe>) {
-      const { info, instructions, ingredients } = recipe;
+    startRecipe(state, { payload: recipeJson }: PayloadAction<RecipeJSON>) {
+      const recipe = Recipe.parseJson(recipeJson)
+      const { info, instructions, ingredients, timers } = recipe;
       state.recipeInfo = info;
       state.ingredients = [...ingredients];
       state.instructions = [...instructions]
-  
-      state.stepTimers = [];
-  
-      state.instructions.forEach(({ timers }, stepIndex) => {
-        timers.forEach(timer =>
-          state.stepTimers.push({
-            ...timer,
-            timerId: state.stepTimers.length,
-            stepIndex,
-            state: CookingTimerState.Pending,
-          })
-        )
-      })
+      state.stepTimers = [...timers];
     },
-    
+  
     incStep(state) {
       if (state.currentStepIndex + 1 < state.instructions.length)
         state.currentStepIndex++

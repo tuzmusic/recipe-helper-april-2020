@@ -4,7 +4,7 @@ import { CenterFlexRow } from "./UtilityComponents";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { startRecipe } from '../redux/cookingSessionSlice';
-import { cookies } from "../data/sampleRecipes";
+import { cookiesJson } from "../data/sampleRecipes";
 import { RootState } from "../redux/rootReducer";
 import { setAutoFreeze } from 'immer';
 
@@ -12,7 +12,7 @@ setAutoFreeze(false);
 const AppWrapper = styled(CenterFlexRow)({})
 
 class App extends React.Component<any> {
-  componentDidMount = () => this.props.startRecipe(cookies());
+  componentDidMount = () => this.props.startRecipe(cookiesJson);
   
   render = () =>
     <AppWrapper bordered margin>

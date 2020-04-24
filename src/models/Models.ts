@@ -1,5 +1,5 @@
 // exists immutably in the database, but is *copied* by value for every session
-import { IngredientState, RecipeInfo } from "../redux/state/stateMap";
+import { IngredientJSON, IngredientState, RecipeInfo, RecipeJSON } from "../redux/state/stateMap";
 
 export class Recipe {
   info: RecipeInfo = {
@@ -7,7 +7,33 @@ export class Recipe {
     title: ""
   };
   instructions: Instruction[] = [];
-  ingredients: Ingredient[] = []
+  ingredients: Ingredient[] = [];
+  timers: StepTimer[] = [];
+  
+  static parseJson = (json: RecipeJSON): Recipe => {
+    const recipe = new Recipe()
+    recipe.info.title = json.title;
+    
+    // Our native API drives everything from the instructions
+    json.instructions.forEach((inst, stepIndex) => {
+      const instruction = new Instruction(inst.text)
+      
+      inst.timers.forEach(({ label, durationSec }) => {
+        recipe.timers.push(new StepTimer(label, durationSec, stepIndex));
+      })
+      
+      // todo: this orders ingredients by step, which could lead to duplicate
+      //  ingredients. at the simplest, we should keep a list of all ingredients
+      //  separate from their relationship to instructions.
+      inst.ingredients.forEach(({ text }: IngredientJSON) => {
+        recipe.ingredients.push(new Ingredient(text, stepIndex))
+      })
+      
+      recipe.instructions.push(instruction)
+    })
+    
+    return recipe
+  }
 }
 
 export class Instruction {
@@ -25,12 +51,17 @@ export class FillerStep extends Instruction {
 }
 
 export class Ingredient {
-  id: string = "";
+  static id = 0;
+  
+  id: number;
   state: IngredientState = {
     done: false
   };
   
-  constructor(public text: string) {}
+  constructor(public text: string,
+    public stepIndex: number) {
+    this.id = Ingredient.id++;
+  }
 }
 
 export enum CookingTimerState {
@@ -46,10 +77,14 @@ export class CookingTimer {
     public label = "") {}
 } // & TimerApiType
 
-export type StepTimer = {
+export class StepTimer {
+  static id = 0;
+  
   timerId: number
-  state: CookingTimerState
-  durationSec: number
-  label: string
-  stepIndex: number
+  state: CookingTimerState = CookingTimerState.Pending
+  
+  constructor(public label: string, public durationSec: number,
+    public stepIndex: number) {
+    this.timerId = StepTimer.id++;
+  }
 }
