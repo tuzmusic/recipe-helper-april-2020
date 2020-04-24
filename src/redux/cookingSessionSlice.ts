@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IngredientState, RecipeInfo } from "./state/stateMap";
 import { CookingTimer, CookingTimerState, Ingredient, Instruction, Recipe, StepTimer } from "../models/Models";
+import { getActiveTimers } from "./selectors/cookingSession.selectors";
 
 export const initialCookingSessionState = {
   recipeInfo: null as RecipeInfo | null,
@@ -57,22 +58,9 @@ const cookingSessionSlice = createSlice({
       ingredient.state[stateKey] = !ingredient.state[stateKey]
     },
   
-    // todo: timer actions
-    startTimer(state, { payload: timer }: PayloadAction<StepTimer>) {
-      state.stepTimers
-        .find(t => t.timerId === timer.timerId)!
-        .state = CookingTimerState.Running
-    },
-    pauseTimer(state, { payload: timer }: PayloadAction<CookingTimer>) {
-      // timer.stop()
-    },
-    clearTimer(state, { payload: timer }: PayloadAction<CookingTimer>) {
-      // timer.stop()
-      const timers = state.activeTimers;
-      timers.splice(timers.indexOf(timer), 1)
-    },
     setTimerState(state, { payload }: PayloadAction<{ timer: StepTimer, timerState: CookingTimerState }>) {
       const { timer, timerState } = payload
+      warnAboutTimerBug(state, payload)
       state.stepTimers
         .find(t => t.timerId === timer.timerId)!
         .state = timerState
@@ -80,12 +68,19 @@ const cookingSessionSlice = createSlice({
   }
 });
 
+const warnAboutTimerBug = (cookingSession: CookingSessionState, { timer, timerState }: { timer: StepTimer, timerState: CookingTimerState }) => {
+  const activeTimerIndices = getActiveTimers({ cookingSession, prefs: { displayedSteps: 3 } }).map(t => t.stepIndex)
+  if (timerState === CookingTimerState.Running && timer.stepIndex < Math.max(...activeTimerIndices))
+    console.error('KNOWN BUG: ' +
+      'Adding a timer from a step earlier than a current running timer ' +
+      'sets the wrong time for the newly added timer!')
+}
+
 export const {
   startRecipe,
   incStep, decStep, goToStep,
   toggleIngredientState,
   setTimerState,
-  startTimer, clearTimer, pauseTimer
 } = cookingSessionSlice.actions;
 export default cookingSessionSlice.reducer
 

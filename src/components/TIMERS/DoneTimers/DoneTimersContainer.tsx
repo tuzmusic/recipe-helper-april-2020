@@ -6,6 +6,6 @@ import DoneTimer from "./DoneTimer";
 
 const DoneTimersContainer = () => {
   const timers = useSelector((state: RootState) => getDoneTimers(state))
-  return <>{ timers.map(timer => <DoneTimer timer={ timer }/>) }</>
+  return <>{ timers.map((timer, i) => <DoneTimer timer={ timer } key={ i }/>) }</>
 }
 export default DoneTimersContainer;

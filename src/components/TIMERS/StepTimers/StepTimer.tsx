@@ -5,7 +5,7 @@ import Timer from "react-compound-timer";
 import { CenterFlexColumn, CenterFlexRow } from "../../UtilityComponents";
 import { setTimerState } from "../../../redux/cookingSessionSlice";
 import { useDispatch } from "react-redux";
-import { MdEdit, MdPause, MdPlayArrow } from 'react-icons/md'
+import { MdCancel, MdPause, MdPlayArrow } from 'react-icons/md'
 
 const TimerWrapper = styled.div({})
 
@@ -38,10 +38,11 @@ type Props = {
   startTimer: () => void
   pauseTimer: () => void
   timerDone: () => void
+  clearTimer: () => void
 };
 
 const StepTimerComponent = (props: Props) => {
-  const { timer, startTimer, pauseTimer, timerDone } = props
+  const { timer, startTimer, pauseTimer, clearTimer, timerDone } = props
   
   // add 100ms buffer so that react-compound-timer displays the first few seconds correctly
   const initialTime = timer.durationSec * 1000 + 100;
@@ -53,6 +54,7 @@ const StepTimerComponent = (props: Props) => {
     onStart={ startTimer }
     onResume={ startTimer }
     onPause={ pauseTimer }
+    onReset={ clearTimer }
     checkpoints={ [{ time: 0, callback: timerDone }] }
   >{ ({ start, resume, pause, stop, reset, timerState, state, ...timerProps }: any) => {
     
@@ -65,11 +67,12 @@ const StepTimerComponent = (props: Props) => {
     * just using their state in the future, or redefining the values (strings) for my
     * enum.
     * */
+    let iconSize = '1.5em';
     const controls = {
-      [CookingTimerState.Pending]: <MdPlayArrow size={ '1.5em' } onClick={ start }/>,
-      [CookingTimerState.Paused]: <MdPlayArrow size={ '1.5em' } onClick={ resume }/>,
-      [CookingTimerState.Running]: <MdPause size={ '1.5em' } onClick={ pause }/>,
-      [CookingTimerState.Done]: <MdPlayArrow size={ '1.5em' } onClick={ start }/>,
+      [CookingTimerState.Pending]: <MdPlayArrow size={ iconSize } onClick={ start }/>,
+      [CookingTimerState.Paused]: <MdPlayArrow size={ iconSize } onClick={ resume }/>,
+      [CookingTimerState.Running]: <MdPause size={ iconSize } onClick={ pause }/>,
+      [CookingTimerState.Done]: <MdPlayArrow size={ iconSize } onClick={ start }/>,
     }
     
     return <TimerWrapper>
@@ -84,7 +87,7 @@ const StepTimerComponent = (props: Props) => {
       </StepTimerButton>
       <IconsWrapper>
         { controls[timer.state] }
-        <MdEdit size={ '1.5em' } style={ { opacity: 0.3 } }/>
+        <MdCancel onClick={ reset } size={ iconSize }/>
       </IconsWrapper>
     </TimerWrapper>;
   }
@@ -100,6 +103,7 @@ const StepTimerContainer = ({ timer }: { timer: StepTimer }) => {
     startTimer={ () => dispatch(setTimerState({ timer, timerState: CookingTimerState.Running })) }
     pauseTimer={ () => dispatch(setTimerState({ timer, timerState: CookingTimerState.Paused })) }
     timerDone={ () => dispatch(setTimerState({ timer, timerState: CookingTimerState.Done })) }
+    clearTimer={ () => dispatch(setTimerState({ timer, timerState: CookingTimerState.Pending })) }
   />
 }
 export default StepTimerContainer

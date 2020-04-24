@@ -15,16 +15,17 @@ export const selectCurrentStepIndex = (state: RootState): number => state.cookin
 export const selectCurrentStep = createSelector(selectAllSteps, selectCurrentStepIndex, (steps, i): Instruction => steps[i])
 export const selectDisplayedStepsCount = (state: RootState): number => state.prefs.displayedSteps
 
-export const selectCurrentStepTimers =
-  createSelector(selectCurrentStepIndex, selectAllTimers,
-    (stepIndex, timers): StepTimer[] => timers.filter(
-      timer => timer.stepIndex === stepIndex && timer.state === CookingTimerState.Pending
-    ))
+export const selectCurrentStepTimers = createSelector(selectCurrentStepIndex, selectAllTimers,
+  (stepIndex, timers): StepTimer[] => timers.filter(
+    timer => timer.stepIndex === stepIndex && timer.state === CookingTimerState.Pending
+  )
+)
 
 export const getActiveTimers = createSelector(selectAllTimers,
-  (timers): StepTimer[] => timers.filter(t =>
-    t.state !== CookingTimerState.Pending && t.state !== CookingTimerState.Done
-  ))
+  (timers): StepTimer[] =>
+    timers.filter(t => t.state !== CookingTimerState.Pending && t.state !== CookingTimerState.Done
+    )
+)
 
 export const getDoneTimers = createSelector(selectAllTimers,
   (timers): StepTimer[] => timers.filter(t => t.state === CookingTimerState.Done)
@@ -32,7 +33,7 @@ export const getDoneTimers = createSelector(selectAllTimers,
 
 export const getIndexForStep = (step: Instruction) => {
   return createSelector(selectAllSteps,
-    (steps: Instruction[]): number => steps.indexOf(step)
+    (steps): number => steps.indexOf(step)
   )
 }
 
