@@ -1,7 +1,6 @@
+import { CookingTimerState, FillerStep, Instruction, StepTimer } from "../../models/Models";
 import { RootState } from "../rootReducer";
 import { createSelector } from "@reduxjs/toolkit";
-import { CookingTimerState, FillerStep, Instruction, StepTimer } from "../../models/Models";
-import { CookingSessionState } from "../cookingSessionSlice";
 
 export enum Currentness {
   Past = -1,
@@ -9,7 +8,6 @@ export enum Currentness {
   Future
 }
 
-export const selectCookingSession = (state: RootState): CookingSessionState => state.cookingSession
 export const selectAllSteps = (state: RootState): Instruction[] => state.cookingSession.instructions
 export const selectAllTimers = (state: RootState): StepTimer[] => state.cookingSession.stepTimers;
 export const selectCurrentStepIndex = (state: RootState): number => state.cookingSession.currentStepIndex
@@ -28,7 +26,7 @@ export const getActiveTimers = createSelector(selectAllTimers,
     t.state !== CookingTimerState.Pending && t.state !== CookingTimerState.Done
   ))
 
-export const getDingingTimers = createSelector(selectAllTimers,
+export const getDoneTimers = createSelector(selectAllTimers,
   (timers): StepTimer[] => timers.filter(t => t.state === CookingTimerState.Done)
 )
 
@@ -100,12 +98,12 @@ export const getActualStepsToDisplay = createSelector(selectAllSteps, getAtWhich
     // (e.g., to prevent the first step from showing at the top
     // instead of the middle when it's the current step)
     // we need to insert "filler" steps above the first step.
-  
+    
     // to get the right index of the otherwise-identical filler steps (we need it in
     // getDisplayedIndexForStep), we need *some* different value in each one.
     const createFillerStepsArray = (): FillerStep[] =>
       Array.from({ length: fillerStepsNeeded }, (_, i) => new FillerStep(Math.random()));
-  
+    
     // pad the current steps with the filler steps and return
     return [createFillerStepsArray(), steps, createFillerStepsArray()].flat()
   }

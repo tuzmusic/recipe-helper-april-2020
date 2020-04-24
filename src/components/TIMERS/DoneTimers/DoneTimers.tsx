@@ -1,7 +1,7 @@
-import StepTimerContainer from "../TIMERS/StepTimer/StepTimer";
+import StepTimerContainer from "../StepTimers/StepTimer";
 import React from "react";
-import { StepTimer } from "../../models/Models";
-import { CenterFlexColumn } from "../UtilityComponents";
+import { StepTimer } from "../../../models/Models";
+import { CenterFlexColumn } from "../../UtilityComponents";
 
 type Props = { timers: StepTimer[] }
 

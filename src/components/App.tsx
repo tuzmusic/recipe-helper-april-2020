@@ -14,13 +14,10 @@ const AppWrapper = styled(CenterFlexRow)({})
 class App extends React.Component<any> {
   componentDidMount = () => this.props.startRecipe(cookies());
   
-  render() {
-    return (
-      <AppWrapper bordered>
-        { this.props.hasRecipe && <CookingSession/> }
-      </AppWrapper>
-    );
-  }
+  render = () =>
+    <AppWrapper bordered margin>
+      { this.props.hasRecipe && <CookingSession/> }
+    </AppWrapper>;
 }
 
 export default connect(
