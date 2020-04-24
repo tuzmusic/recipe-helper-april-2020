@@ -70,10 +70,12 @@ const cookingSessionSlice = createSlice({
 
 const warnAboutTimerBug = (cookingSession: CookingSessionState, { timer, timerState }: { timer: StepTimer, timerState: CookingTimerState }) => {
   const activeTimerIndices = getActiveTimers({ cookingSession, prefs: { displayedSteps: 3 } }).map(t => t.stepIndex)
-  if (timerState === CookingTimerState.Running && timer.stepIndex < Math.max(...activeTimerIndices))
-    console.error('KNOWN BUG: ' +
-      'Adding a timer from a step earlier than a current running timer ' +
-      'sets the wrong time for the newly added timer!')
+  if (timerState === CookingTimerState.Running && timer.stepIndex < Math.max(...activeTimerIndices)) {
+    let str = 'KNOWN BUG: '
+    str += 'Adding a timer from a step earlier than a current running timer '
+    str += 'sets the wrong time for the newly added timer! '
+    alert(str)
+  }
 }
 
 export const {
