@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppIngredient, AppInstruction, AppStepTimer, IngredientState, RecipeInfo, RecipeJSON } from "./state/stateMap";
-import { CookingTimerState, Ingredient, Recipe } from "../models/Models";
+import { CookingTimerState, Recipe } from "../models/Models";
 import { getActiveTimers } from "./selectors/cookingSession.selectors";
 
 export const initialCookingSessionState = {
@@ -40,7 +40,7 @@ const cookingSessionSlice = createSlice({
     },
   
     toggleIngredientState(state, { payload }:
-      PayloadAction<{ ingredient: Ingredient, stateKey: keyof IngredientState }>) {
+      PayloadAction<{ ingredient: AppIngredient, stateKey: keyof IngredientState }>) {
       const { ingredient, stateKey } = payload;
       // todo: this assumes we're actually passing the ingredient and not a copy of
       //  its info. or something like that.
@@ -77,4 +77,4 @@ export default cookingSessionSlice.reducer
 
 /* Convenience actions */
 
-export const toggleDone = (ingredient: Ingredient) => toggleIngredientState({ ingredient, stateKey: 'done' });
+export const toggleDone = (ingredient: AppIngredient) => toggleIngredientState({ ingredient, stateKey: 'done' });
