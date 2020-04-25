@@ -1,6 +1,7 @@
-import { CookingTimerState, FillerStep, Instruction, StepTimer } from "../../models/Models";
+import { CookingTimerState, FillerStep } from "../../models/Models";
 import { RootState } from "../rootReducer";
 import { createSelector } from "@reduxjs/toolkit";
+import { AppInstruction, AppStepTimer } from "../state/stateMap";
 
 export enum Currentness {
   Past = -1,
@@ -8,48 +9,48 @@ export enum Currentness {
   Future
 }
 
-export const selectAllSteps = (state: RootState): Instruction[] => state.cookingSession.instructions
-export const selectAllTimers = (state: RootState): StepTimer[] => state.cookingSession.stepTimers;
+export const selectAllSteps = (state: RootState): AppInstruction[] => state.cookingSession.instructions
+export const selectAllTimers = (state: RootState): AppStepTimer[] => state.cookingSession.stepTimers;
 export const selectCurrentStepIndex = (state: RootState): number => state.cookingSession.currentStepIndex
 
-export const selectCurrentStep = createSelector(selectAllSteps, selectCurrentStepIndex, (steps, i): Instruction => steps[i])
+export const selectCurrentStep = createSelector(selectAllSteps, selectCurrentStepIndex, (steps, i): AppInstruction => steps[i])
 export const selectDisplayedStepsCount = (state: RootState): number => state.prefs.displayedSteps
 
 export const selectCurrentStepTimers = createSelector(selectCurrentStepIndex, selectAllTimers,
-  (stepIndex, timers): StepTimer[] => timers.filter(
+  (stepIndex, timers): AppStepTimer[] => timers.filter(
     timer => timer.stepIndex === stepIndex && timer.state === CookingTimerState.Pending
   )
 )
 
 export const getActiveTimers = createSelector(selectAllTimers,
-  (timers): StepTimer[] =>
+  (timers): AppStepTimer[] =>
     timers.filter(t => t.state !== CookingTimerState.Pending && t.state !== CookingTimerState.Done
     )
 )
 
 export const getDoneTimers = createSelector(selectAllTimers,
-  (timers): StepTimer[] => timers.filter(t => t.state === CookingTimerState.Done)
+  (timers): AppStepTimer[] => timers.filter(t => t.state === CookingTimerState.Done)
 )
 
-export const getIndexForStep = (step: Instruction) => {
+export const getIndexForStep = (step: AppInstruction) => {
   return createSelector(selectAllSteps,
     (steps): number => steps.indexOf(step)
   )
 }
 
-export const getDisplayedIndexForStep = (step: Instruction) => {
+export const getDisplayedIndexForStep = (step: AppInstruction) => {
   return createSelector(getActualStepsToDisplay,
     (steps): number => steps.indexOf(step)
   )
 }
 
-export const getNumberForStep = (step: Instruction) => {
+export const getNumberForStep = (step: AppInstruction) => {
   return createSelector(getIndexForStep(step),
     (index): number => index + 1
   )
 }
 
-export const getShouldShowStep = (step: Instruction) => {
+export const getShouldShowStep = (step: AppInstruction) => {
   return createSelector(
     selectCurrentStepIndex,
     getIndexForStep(step),
@@ -94,7 +95,7 @@ export const getAtWhichIndexToDisplayTheCurrentStep = createSelector(selectDispl
 )
 
 export const getActualStepsToDisplay = createSelector(selectAllSteps, getAtWhichIndexToDisplayTheCurrentStep,
-  (steps, fillerStepsNeeded): Instruction[] => {
+  (steps, fillerStepsNeeded): AppInstruction[] => {
     // In order to always have the current step in the middle,
     // (e.g., to prevent the first step from showing at the top
     // instead of the middle when it's the current step)
@@ -110,7 +111,7 @@ export const getActualStepsToDisplay = createSelector(selectAllSteps, getAtWhich
   }
 )
 
-export const getIsStepTheCurrentStep = (step: Instruction) => {
+export const getIsStepTheCurrentStep = (step: AppInstruction) => {
   return createSelector(selectAllSteps, selectCurrentStepIndex,
     (steps, currIndex): boolean => steps.indexOf(step) === currIndex)
 }

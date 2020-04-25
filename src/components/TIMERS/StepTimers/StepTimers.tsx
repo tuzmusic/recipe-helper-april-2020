@@ -1,9 +1,9 @@
 import StepTimerContainer from "./StepTimer";
 import React from "react";
-import { StepTimer } from "../../../models/Models";
 import { CenterFlexColumn } from "../../UtilityComponents";
+import { AppStepTimer } from "../../../redux/state/stateMap";
 
-type Props = { timers: StepTimer[] }
+type Props = { timers: AppStepTimer[] }
 
 export const StepTimers = ({ timers }: Props) =>
   <CenterFlexColumn padding> {

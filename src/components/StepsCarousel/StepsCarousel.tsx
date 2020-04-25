@@ -1,9 +1,9 @@
 import CookingStepContainer from "../CookingStep/CookingStep";
 import React from "react";
 import styled from "@emotion/styled";
-import { Instruction } from "../../models/Models";
 import { ClickHandler } from "../../types/utility.types";
 import { CenterFlexColumn, CenterFlexRow } from "../UtilityComponents";
+import { AppInstruction } from "../../redux/state/stateMap";
 
 // const CarouselWrapper = styled(CenterFlexRow)({})
 
@@ -29,7 +29,7 @@ const StepsWrapper = styled(CenterFlexColumn)({
 })
 
 type Props = {
-  steps: Instruction[]
+  steps: AppInstruction[]
   incStep: ClickHandler
   decStep: ClickHandler
   currentStepIndex: number

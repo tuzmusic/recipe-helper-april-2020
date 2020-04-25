@@ -1,5 +1,5 @@
 import React from 'react';
-import { FillerStep, Instruction } from "../../models/Models";
+import { FillerStep } from "../../models/Models";
 import { RootState } from "../../redux/rootReducer";
 import {
   Currentness,
@@ -9,12 +9,13 @@ import {
 } from "../../redux/selectors/cookingSession.selectors";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
+import { AppInstruction } from "../../redux/state/stateMap";
 
 // render differently based on whether it's the current step?
 // whether it's higher or lower than the current step?
 
 type Props = {
-  step: Instruction
+  step: AppInstruction
   pos?: Currentness
   number?: number
   isCurrentStep?: boolean

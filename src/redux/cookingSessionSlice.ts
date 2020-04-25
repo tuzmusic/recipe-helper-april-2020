@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IngredientState, RecipeInfo, RecipeJSON } from "./state/stateMap";
-import { CookingTimer, CookingTimerState, Ingredient, Instruction, Recipe, StepTimer } from "../models/Models";
+import { AppIngredient, AppInstruction, AppStepTimer, IngredientState, RecipeInfo, RecipeJSON } from "./state/stateMap";
+import { CookingTimerState, Ingredient, Recipe } from "../models/Models";
 import { getActiveTimers } from "./selectors/cookingSession.selectors";
 
 export const initialCookingSessionState = {
   recipeInfo: null as RecipeInfo | null,
-  instructions: [] as Instruction[],
-  ingredients: [] as Ingredient[],
-  activeTimers: [] as CookingTimer[],
+  instructions: [] as AppInstruction[],
+  ingredients: [] as AppIngredient[],
+  stepTimers: [] as AppStepTimer[],
+  // activeTimers: [] as CookingTimer[],
   currentStepIndex: 0 as number,
-  stepTimers: [] as StepTimer[]
 };
 export type CookingSessionState = typeof initialCookingSessionState
 
@@ -18,7 +18,7 @@ const cookingSessionSlice = createSlice({
   initialState: initialCookingSessionState,
   reducers: {
     startRecipe(state, { payload: recipeJson }: PayloadAction<RecipeJSON>) {
-      const recipe = Recipe.parseJson(recipeJson)
+      const recipe = Recipe.parseJsonToJson(recipeJson)
       const { info, instructions, ingredients, timers } = recipe;
       state.recipeInfo = info;
       state.ingredients = [...ingredients];
@@ -47,17 +47,17 @@ const cookingSessionSlice = createSlice({
       ingredient.state[stateKey] = !ingredient.state[stateKey]
     },
   
-    setTimerState(state, { payload }: PayloadAction<{ timer: StepTimer, timerState: CookingTimerState }>) {
+    setTimerState(state, { payload }: PayloadAction<{ timer: AppStepTimer, timerState: CookingTimerState }>) {
       const { timer, timerState } = payload
       warnAboutTimerBug(state, payload)
-      state.stepTimers
-        .find(t => t.timerId === timer.timerId)!
-        .state = timerState
+      const timerInStore = state.stepTimers
+        .find(t => t.id === timer.id)!
+      timerInStore.state = timerState
     }
   }
 });
 
-const warnAboutTimerBug = (cookingSession: CookingSessionState, { timer, timerState }: { timer: StepTimer, timerState: CookingTimerState }) => {
+const warnAboutTimerBug = (cookingSession: CookingSessionState, { timer, timerState }: { timer: AppStepTimer, timerState: CookingTimerState }) => {
   const activeTimerIndices = getActiveTimers({ cookingSession, prefs: { displayedSteps: 3 } }).map(t => t.stepIndex)
   if (timerState === CookingTimerState.Running && timer.stepIndex < Math.max(...activeTimerIndices)) {
     let str = 'KNOWN BUG: '

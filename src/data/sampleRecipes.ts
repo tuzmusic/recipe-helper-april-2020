@@ -42,7 +42,7 @@ export const cookiesJson: RecipeJSON = {
       text: "Preheat the oven to 375, while dancing for one minute",
       timers: [{
         label: "Dance",
-        durationSec: 10 * 60,
+        durationSec: 60,
       }],
       ingredients: []
     },
