@@ -1,12 +1,12 @@
-import { RootState } from "../../redux/rootReducer";
+import { RootState } from "../../../redux/rootReducer";
 import { connect } from "react-redux";
 import StepsCarousel from "./StepsCarousel";
+import { decStep, incStep } from "../../../redux/cookingSessionSlice";
 import {
   getActualStepsToDisplay,
   getAtWhichIndexToDisplayTheCurrentStep,
   selectCurrentStepIndex
-} from "../../redux/selectors/cookingSession.selectors";
-import { decStep, incStep } from "../../redux/cookingSessionSlice";
+} from "../../../redux/selectors/instructions.selectors";
 
 const select = (state: RootState) => ({
   steps: getActualStepsToDisplay(state),

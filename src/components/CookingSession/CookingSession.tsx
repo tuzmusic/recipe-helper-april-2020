@@ -1,11 +1,11 @@
 import { CenterFlexColumn, CenterFlexRow } from "../UtilityComponents";
-import { PrintedRecipeContainer } from "../RecipeSummary/RecipeSummary";
+import IngredientsListContainer from "../INGREDIENTS/IngredientsList";
 import React from "react";
 import styled from "@emotion/styled";
 import DoneTimersContainer from "../TIMERS/DoneTimers/DoneTimersContainer";
 import StepTimersContainer from "../TIMERS/StepTimers/StepTimersContainer";
 import ActiveTimersContainer from "../TIMERS/ActiveTimers/ActiveTimersContainer";
-import StepsCarouselContainer from "../StepsCarousel/StepsCarouselContainer";
+import StepsCarouselContainer from "../INSTRUCTIONS/StepsCarousel/StepsCarouselContainer";
 
 const IngredientsWrapper = styled.div({ width: '30%' })
 
@@ -31,15 +31,15 @@ export const CookingSession = () =>
     <MainSection>
       
       <IngredientsWrapper>
-        <PrintedRecipeContainer/>
+        <IngredientsListContainer/>
       </IngredientsWrapper>
       
       <CenterFlexColumn fullWidth>
         <CurrentStepWrapper>
           <StepsCarouselContainer/>
         </CurrentStepWrapper>
-        
-        <TimersWrapper bordered>
+  
+        <TimersWrapper>
           <StepTimersContainer/>
           <ActiveTimersContainer/>
         </TimersWrapper>

@@ -1,22 +1,20 @@
 import CookingStepContainer from "../CookingStep/CookingStep";
 import React from "react";
 import styled from "@emotion/styled";
-import { ClickHandler } from "../../types/utility.types";
-import { CenterFlexColumn, CenterFlexRow } from "../UtilityComponents";
-import { AppInstruction } from "../../redux/state/stateMap";
+import { ClickHandler } from "../../../types/utility.types";
+import { CenterFlexColumn, CenterFlexRow } from "../../UtilityComponents";
+import { AppInstruction } from "../../../redux/state/stateMap";
 
 // const CarouselWrapper = styled(CenterFlexRow)({})
 
 const CarouselWrapper = ({ children }: any) =>
-  <CenterFlexRow bordered padding fullWidth
-                 children={ children }/>
+  <CenterFlexRow fullWidth children={ children }/>
 
 const Arrow = styled(CenterFlexRow)({
   width: '40px',
   height: '40px',
   fontSize: '30px',
   borderRadius: '200%',
-  // fontWeight: 'bold',
   border: 'black solid thin',
   userSelect: 'none',
 })
@@ -38,7 +36,7 @@ type Props = {
 
 const ArrowsWrapper = styled(CenterFlexColumn)()
 
-const StepsCarousel = ({ steps, incStep, decStep, currentStepIndex, indexAtWhichToDisplayCurrentStep }: Props) => {
+const StepsCarousel = ({ steps, incStep, decStep }: Props) => {
   return <CarouselWrapper>
     <StepsWrapper>{
       steps.map((step, i) => <CookingStepContainer step={ step } key={ i }/>)

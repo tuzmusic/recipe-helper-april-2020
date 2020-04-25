@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppIngredient, AppInstruction, AppStepTimer, IngredientState, RecipeInfo, RecipeJSON } from "./state/stateMap";
 import { CookingTimerState, Recipe } from "../models/Models";
-import { getActiveTimers } from "./selectors/cookingSession.selectors";
+import { getActiveTimers } from "./selectors/timers.selectors";
 
 export const initialCookingSessionState = {
   recipeInfo: null as RecipeInfo | null,

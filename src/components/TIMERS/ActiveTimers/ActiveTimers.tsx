@@ -9,7 +9,7 @@ type Props = {
 
 export const ActiveTimers = ({ timers }: Props) =>
   <CenterFlexColumn padding> {
-    timers.length ? timers.map((timer, i) =>
+    timers.map((timer, i) =>
       <StepTimerComponent timer={ timer } key={ i }/>
-    ) : "No timers."
+    )
   } </CenterFlexColumn>;

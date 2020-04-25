@@ -44,7 +44,9 @@ export const cookiesJson: RecipeJSON = {
         label: "Dance",
         durationSec: 60,
       }],
-      ingredients: []
+      ingredients: [
+        { text: "oven" },
+      ]
     },
     {
       text: "Crack the egg",

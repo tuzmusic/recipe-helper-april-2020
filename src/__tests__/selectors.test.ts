@@ -1,7 +1,7 @@
 import { Instruction } from "../models/Models";
 import { RootState } from "../redux/rootReducer";
 import { initialCookingSessionState } from "../redux/cookingSessionSlice";
-import { Currentness, getShouldShowStep } from "../redux/selectors/cookingSession.selectors";
+import { Currentness, getShouldShowStep } from "../redux/selectors/instructions.selectors";
 
 describe('getShouldShowState', () => {
   let state: RootState

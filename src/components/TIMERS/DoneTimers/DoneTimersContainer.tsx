@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/rootReducer";
-import { getDoneTimers } from "../../../redux/selectors/cookingSession.selectors";
+import { getDoneTimers } from "../../../redux/selectors/timers.selectors";
 import React from "react";
 import DoneTimer from "./DoneTimer";
 
