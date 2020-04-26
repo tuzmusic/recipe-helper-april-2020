@@ -1,4 +1,4 @@
-import { cookies } from "../data/sampleRecipes";
+import { cookies } from "../fixtures/sampleRecipes";
 import cookingSession, {
   clearTimer,
   CookingSessionState,

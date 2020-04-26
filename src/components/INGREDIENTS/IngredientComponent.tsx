@@ -1,4 +1,4 @@
-import { AppIngredient } from "../../redux/state/stateMap";
+import { RecipeIngredient } from "../../redux/state/stateMap";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
@@ -15,15 +15,15 @@ const IngredientElement = styled.p<{ isCurrent: boolean }>({
 )
 
 type Props = {
-  ingredient: AppIngredient
+  ingredient: RecipeIngredient
   isCurrent: boolean
 }
 export const IngredientComponent = ({ ingredient, isCurrent }: Props) => {
-  return <IngredientElement isCurrent={ isCurrent }>{ ingredient.text }</IngredientElement>
+  return <IngredientElement isCurrent={ isCurrent }>{ ingredient.name }</IngredientElement>
 }
 
-const IngredientContainer = ({ ingredient }: { ingredient: AppIngredient }) => {
-  const isCurrent = useSelector((state: RootState) => ingredient.stepIndex === state.cookingSession.currentStepIndex)
+const IngredientContainer = ({ ingredient }: { ingredient: RecipeIngredient }) => {
+  const isCurrent = useSelector((state: RootState) => ingredient.stepIndices === state.cookingSession.currentStepIndex)
   return <IngredientComponent ingredient={ ingredient } isCurrent={ isCurrent }/>
 }
 

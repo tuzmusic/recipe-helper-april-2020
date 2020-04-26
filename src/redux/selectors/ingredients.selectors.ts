@@ -1,4 +1,4 @@
 import { RootState } from "../rootReducer";
-import { AppIngredient } from "../state/stateMap";
+import { RecipeIngredient } from "../state/stateMap";
 
-export const getAllIngredients = (state: RootState): AppIngredient[] => state.cookingSession.ingredients;
+export const getAllIngredients = (state: RootState): RecipeIngredient[] => state.cookingSession.ingredients;

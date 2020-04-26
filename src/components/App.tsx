@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { startRecipe } from '../redux/cookingSessionSlice';
-import { cookiesJson } from "../data/sampleRecipes";
+import { cookiesJson } from "../fixtures/sampleRecipes";
 import { RootState } from "../redux/rootReducer";
 import { setAutoFreeze } from 'immer';
 import { RecipeJSON } from "../redux/state/stateMap";

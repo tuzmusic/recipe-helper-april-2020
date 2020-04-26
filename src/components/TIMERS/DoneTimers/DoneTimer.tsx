@@ -1,4 +1,3 @@
-import { CookingTimerState } from "../../../models/Models";
 import React from "react";
 import styled from "@emotion/styled";
 import { CenterFlexRow } from "../../UtilityComponents";
@@ -6,7 +5,7 @@ import { keyframes } from "@emotion/core";
 import { GiCancel } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 import { setTimerState } from "../../../redux/cookingSessionSlice";
-import { AppStepTimer } from "../../../redux/state/stateMap";
+import { AppStepTimer, CookingTimerState } from "../../../redux/state/stateMap";
 
 const BackgroundBlink = keyframes`
   from { background-color: red }

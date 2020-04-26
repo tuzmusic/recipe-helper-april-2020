@@ -1,12 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppIngredient, AppInstruction, AppStepTimer, IngredientState, RecipeInfo, RecipeJSON } from "./state/stateMap";
-import { CookingTimerState, Recipe } from "../models/Models";
+import {
+  AppInstruction,
+  AppStepTimer,
+  CookingTimerState,
+  IngredientState,
+  RecipeInfo,
+  RecipeIngredient,
+  RecipeJSON
+} from "./state/stateMap";
+import { Recipe } from "../models/Models";
 import { getActiveTimers } from "./selectors/timers.selectors";
 
 export const initialCookingSessionState = {
   recipeInfo: null as RecipeInfo | null,
   instructions: [] as AppInstruction[],
-  ingredients: [] as AppIngredient[],
+  ingredients: [] as RecipeIngredient[],
   stepTimers: [] as AppStepTimer[],
   // activeTimers: [] as CookingTimer[],
   currentStepIndex: 0 as number,
@@ -18,7 +26,7 @@ const cookingSessionSlice = createSlice({
   initialState: initialCookingSessionState,
   reducers: {
     startRecipe(state, { payload: recipeJson }: PayloadAction<RecipeJSON>) {
-      const recipe = Recipe.parseJsonToJson(recipeJson)
+      const recipe = Recipe.createRecipeFromJson(recipeJson)
       const { info, instructions, ingredients, timers } = recipe;
       state.recipeInfo = info;
       state.ingredients = [...ingredients];
@@ -40,7 +48,7 @@ const cookingSessionSlice = createSlice({
     },
   
     toggleIngredientState(state, { payload }:
-      PayloadAction<{ ingredient: AppIngredient, stateKey: keyof IngredientState }>) {
+      PayloadAction<{ ingredient: RecipeIngredient, stateKey: keyof IngredientState }>) {
       const { ingredient, stateKey } = payload;
       // todo: this assumes we're actually passing the ingredient and not a copy of
       //  its info. or something like that.
@@ -77,4 +85,4 @@ export default cookingSessionSlice.reducer
 
 /* Convenience actions */
 
-export const toggleDone = (ingredient: AppIngredient) => toggleIngredientState({ ingredient, stateKey: 'done' });
+export const toggleDone = (ingredient: RecipeIngredient) => toggleIngredientState({ ingredient, stateKey: 'done' });

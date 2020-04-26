@@ -1,7 +1,6 @@
-import { CookingTimerState } from "../../models/Models";
 import { RootState } from "../rootReducer";
 import { createSelector } from "@reduxjs/toolkit";
-import { AppStepTimer } from "../state/stateMap";
+import { AppStepTimer, CookingTimerState } from "../state/stateMap";
 import { selectCurrentStepIndex } from "./instructions.selectors";
 
 export const selectAllTimers = (state: RootState): AppStepTimer[] => state.cookingSession.stepTimers;

@@ -1,4 +1,3 @@
-import { CookingTimerState } from "../../../models/Models";
 import React from "react";
 import styled from "@emotion/styled";
 import Timer from "react-compound-timer";
@@ -6,7 +5,7 @@ import { CenterFlexColumn, CenterFlexRow } from "../../UtilityComponents";
 import { setTimerState } from "../../../redux/cookingSessionSlice";
 import { useDispatch } from "react-redux";
 import { MdCancel, MdPause, MdPlayArrow } from 'react-icons/md'
-import { AppStepTimer } from "../../../redux/state/stateMap";
+import { AppStepTimer, CookingTimerState } from "../../../redux/state/stateMap";
 
 const TimerWrapper = styled.div({})
 
