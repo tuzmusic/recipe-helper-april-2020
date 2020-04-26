@@ -1,4 +1,4 @@
-import { RecipeJSON } from "../redux/state/stateMap";
+import { DetailedIngredientJSON, RecipeJSON } from "../types/parser.types";
 
 export const cookies = () => {
   /*
@@ -39,29 +39,29 @@ export const cookiesJson: RecipeJSON = {
   title: "Cookies",
   instructions: [
     {
-      text: "Preheat the oven to 375, while dancing for one minute",
+      text: "Preheat the oven to 375, while dancing for one minute. And get the eggs ready!",
       timers: [{
         label: "Dance",
         durationSec: 60,
       }],
       ingredients: [
-        { text: "oven" },
+        { name: "1 egg", id: 3 },
       ]
     },
     {
       text: "Crack the egg",
       timers: [],
       ingredients: [
-        { text: "1 egg" },
+        { name: "1 egg", id: 3 },
       ]
     },
     {
       text: "Mix flour, chips and sugar",
       timers: [],
       ingredients: [
-        { text: "2 cups flour" },
-        { text: "1 cup chips" },
-        { text: "2 tbsp sugar" },
+        { name: "2 cups flour", id: 0 },
+        { name: "1 cup chips", id: 1 },
+        { name: "2 tbsp sugar", id: 2 },
       ]
     },
     {
@@ -74,9 +74,9 @@ export const cookiesJson: RecipeJSON = {
     },
   ],
   ingredients: [
-    { text: "2 cups flour" },
-    { text: "1 cup chips" },
-    { text: "2 tbsp sugar" },
-    { text: "1 egg" },
+    { name: "2 cups flour", id: 0 } as DetailedIngredientJSON,
+    { name: "1 cup chips", id: 1 } as DetailedIngredientJSON,
+    { name: "2 tbsp sugar", id: 2 } as DetailedIngredientJSON,
+    { name: "1 egg", id: 3 } as DetailedIngredientJSON,
   ]
 }

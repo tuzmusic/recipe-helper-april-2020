@@ -6,10 +6,10 @@ import {
   IngredientState,
   RecipeInfo,
   RecipeIngredient,
-  RecipeJSON
 } from "./state/stateMap";
 import { Recipe } from "../models/Models";
 import { getActiveTimers } from "./selectors/timers.selectors";
+import { RecipeJSON } from "../types/parser.types";
 
 export const initialCookingSessionState = {
   recipeInfo: null as RecipeInfo | null,

@@ -5,9 +5,9 @@ import { startRecipe } from '../redux/cookingSessionSlice';
 import { cookiesJson } from "../fixtures/sampleRecipes";
 import { RootState } from "../redux/rootReducer";
 import { setAutoFreeze } from 'immer';
-import { RecipeJSON } from "../redux/state/stateMap";
 import { CookingSession } from "./CookingSession/CookingSession";
 import { CenterFlexColumn } from "./UtilityComponents";
+import { RecipeJSON } from "../types/parser.types";
 
 setAutoFreeze(false);
 const AppWrapper = styled(CenterFlexColumn)({ alignItems: 'flex-start' })

@@ -1,5 +1,5 @@
 // exists immutably in the database, but is *copied* by value for every session
-import { AppRecipe, AppStepTimer, CookingTimerState, RecipeIngredient } from "../redux/state/stateMap";
+import { AppRecipe, CookingTimerState, RecipeIngredient } from "../redux/state/stateMap";
 import { DetailedIngredientJSON, RecipeJSON } from "../types/parser.types";
 
 export class Recipe {
@@ -83,19 +83,8 @@ export class Recipe {
     
     return recipe
   }
-  
 }
 
-export class Instruction {
-  timers: AppStepTimer[] = [];
-  
-  constructor(public text: string) {}
-  
-  // todo: handle ingredients in an instruction.
-  //  might actually be a selector.
-  // ingredients: Ingredient[] = [];
-}
-
-export class FillerStep extends Instruction {
-  constructor(public fillerIndex: number) {super('');}
+export class FillerStep {
+  constructor(public id: number, public text: string = '') {}
 }

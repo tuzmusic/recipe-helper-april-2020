@@ -23,7 +23,7 @@ export const IngredientComponent = ({ ingredient, isCurrent }: Props) => {
 }
 
 const IngredientContainer = ({ ingredient }: { ingredient: RecipeIngredient }) => {
-  const isCurrent = useSelector((state: RootState) => ingredient.stepIndices === state.cookingSession.currentStepIndex)
+  const isCurrent = useSelector((state: RootState) => ingredient.stepIndices.includes(state.cookingSession.currentStepIndex))
   return <IngredientComponent ingredient={ ingredient } isCurrent={ isCurrent }/>
 }
 
