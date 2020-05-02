@@ -7,7 +7,7 @@ import {
   RecipeInfo,
   RecipeIngredient,
 } from "./state/stateMap";
-import { Recipe } from "../models/Models";
+import { Recipe } from "../models/RecipeModel";
 import { getActiveTimers } from "./selectors/timers.selectors";
 import { RecipeJSON } from "../types/parser.types";
 

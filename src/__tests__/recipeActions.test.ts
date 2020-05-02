@@ -10,7 +10,7 @@ import cookingSession, {
   toggleDone,
   toggleIngredientState
 } from '../redux/cookingSessionSlice'
-import { CookingTimer } from "../models/Models";
+import { CookingTimer } from "../models/RecipeModel";
 
 describe('recipe model and actions', () => {
   

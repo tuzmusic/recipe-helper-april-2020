@@ -10,7 +10,14 @@ import { CenterFlexColumn } from "./UtilityComponents";
 import { RecipeJSON } from "../types/parser.types";
 
 setAutoFreeze(false);
-const AppWrapper = styled(CenterFlexColumn)({ alignItems: 'flex-start' })
+const AppWrapper = styled(CenterFlexColumn)({
+  justifyContent: 'flex-start',
+})
+
+const Heading = styled.h1({
+  padding: '10px',
+  width: '100%'
+})
 
 class App extends React.Component<{
   recipeName: string | undefined
@@ -19,10 +26,10 @@ class App extends React.Component<{
   componentDidMount = () => this.props.startRecipe(cookiesJson);
   
   render = () =>
-    <AppWrapper margin>
+    <AppWrapper bordered fullHeight>
       { this.props.recipeName &&
       <>
-          <h1>{ this.props.recipeName }</h1>
+          <Heading>{ this.props.recipeName }</Heading>
           <CookingSession/>
       </>
       }

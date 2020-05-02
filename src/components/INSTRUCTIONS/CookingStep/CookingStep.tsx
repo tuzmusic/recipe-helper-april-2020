@@ -1,5 +1,5 @@
 import React from 'react';
-import { FillerStep } from "../../../models/Models";
+import { FillerStep } from "../../../models/RecipeModel";
 import { RootState } from "../../../redux/rootReducer";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";

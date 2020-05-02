@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { AppInstruction } from "../state/stateMap";
-import { FillerStep } from "../../models/Models";
+import { FillerStep } from "../../models/RecipeModel";
 import { RootState } from "../rootReducer";
 
 export const selectAllSteps = (state: RootState): AppInstruction[] => state.cookingSession.instructions

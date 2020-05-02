@@ -11,7 +11,8 @@ const TextWrapper = styled.div({
 
 const IngredientsList = ({ ingredients }: CookingSessionState) =>
   <TextWrapper>
-    { ingredients.map((ing) => <IngredientComponent ingredient={ ing }/>) }
+    { ingredients.map((ing, i) =>
+      <IngredientComponent ingredient={ ing } key={ i }/>) }
   </TextWrapper>;
 
 const IngredientsListContainer = connect((state: RootState) => state.cookingSession)(IngredientsList);

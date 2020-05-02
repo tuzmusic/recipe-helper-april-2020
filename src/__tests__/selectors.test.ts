@@ -1,4 +1,4 @@
-import { Instruction } from "../models/Models";
+import { Instruction } from "../models/RecipeModel";
 import { RootState } from "../redux/rootReducer";
 import { initialCookingSessionState } from "../redux/cookingSessionSlice";
 import { Currentness, getShouldShowStep } from "../redux/selectors/instructions.selectors";

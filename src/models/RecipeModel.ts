@@ -52,29 +52,6 @@ export class Recipe {
               };
               recipe.timers.push(newTimer);
             })
-            
-            /*        // todo: handle ingredients that appear in more than one step!
-                    inst.ingredients.forEach((ing: StepIngredientJSON) => {
-                      
-                      // Find the corresponding detailed ingredient from the recipe's ingredients list
-                      const detailedIngredientFromList = json.ingredients.find(({ id }) => id === ing.id)
-                      
-                      // if we couldn't find it, log a warning (this should never happen, and if it
-                      // does something is definitely wrong!)
-                      if (!detailedIngredientFromList) {
-                        return console.warn(`Found ${ ing.name } in step ${ stepIndex } but not in the master list!`);
-                      }
-                      
-                      // initialize the new ingredient
-                      const newIngredient: RecipeIngredient = {
-                        ...detailedIngredientFromList, stepIndices: stepIndex, state: { done: false }
-                      }
-                      
-                      // place the ingredient in our list, preserving the order of the original list!
-                      const listIndex = json.ingredients.indexOf(detailedIngredientFromList);
-                      recipe.ingredients[listIndex] = newIngredient;
-                    })*/
-            
           }
         })
         
