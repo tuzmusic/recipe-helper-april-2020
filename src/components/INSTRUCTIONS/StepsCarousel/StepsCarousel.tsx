@@ -1,5 +1,5 @@
 import CookingStepContainer from "../CookingStep/CookingStep";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { ClickHandler } from "../../../types/utility.types";
 import { CenterFlexColumn, CenterFlexRow } from "../../UtilityComponents";
@@ -16,6 +16,7 @@ const Arrow = styled(CenterFlexRow)({
   borderRadius: '200%',
   border: 'black solid thin',
   userSelect: 'none',
+  margin: '10px'
 })
 
 const StepsWrapper = styled(CenterFlexColumn)({
@@ -35,15 +36,24 @@ type Props = {
 
 const ArrowsWrapper = styled(CenterFlexColumn)()
 
-const StepsCarousel = ({ steps, incStep, decStep }: Props) =>
-  <CarouselWrapper fullWidth>
+const StepsCarousel = ({ steps, incStep, decStep }: Props) => {
+  
+  useEffect(() => {
+    window.addEventListener('keydown', ((e) => {
+      if (e.key === 'ArrowUp') decStep()
+      if (e.key === 'ArrowDown') incStep()
+    }))
+  }, [incStep, decStep])
+  
+  return <CarouselWrapper fullWidth>
     <StepsWrapper>{
       steps.map((step, i) => <CookingStepContainer step={ step } key={ i }/>)
     }</StepsWrapper>
-    <ArrowsWrapper padding>
-      <Arrow onClick={ decStep } vMargin>{ "⬆" }</Arrow>
-      <Arrow onClick={ incStep } vMargin>{ "⬇" }</Arrow>
+    <ArrowsWrapper>
+      <Arrow onClick={ decStep }>{ "⬆" }</Arrow>
+      <Arrow onClick={ incStep }>{ "⬇" }</Arrow>
     </ArrowsWrapper>
-  </CarouselWrapper>
+  </CarouselWrapper>;
+}
 
 export default StepsCarousel

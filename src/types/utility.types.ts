@@ -1,3 +1,3 @@
 import { MouseEvent } from "react";
 
-export type ClickHandler = (event: MouseEvent) => void
+export type ClickHandler = (event?: MouseEvent) => void
