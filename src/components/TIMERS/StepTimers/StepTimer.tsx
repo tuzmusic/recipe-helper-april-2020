@@ -7,7 +7,9 @@ import { useDispatch } from "react-redux";
 import { MdCancel, MdPause, MdPlayArrow } from 'react-icons/md'
 import { AppStepTimer, CookingTimerState } from "../../../redux/state/stateMap";
 
-const TimerWrapper = styled.div({})
+const TimerWrapper = styled.div({
+  margin: '0 5px',
+})
 
 const TimerLabel = styled.div({
   textAlign: 'center',

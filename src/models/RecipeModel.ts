@@ -18,27 +18,27 @@ export class Recipe {
     
     recipe.ingredients = json.ingredients.map(
       (currentJsonIngredient: DetailedIngredientJSON, ingIndex: number) => {
-        
+  
         // initialize the ingredient object
         const newIngredient: RecipeIngredient = {
           ...currentJsonIngredient,
           state: { done: false },
           stepIndices: []
         }
-        
+        let timerIndex = 0;
+  
         // look through all instructions and see if this ingredient is included
         json.instructions.forEach((inst, stepIndex) => {
-          
+    
           // check if this instruction uses this ingredient
           const instObj = inst.ingredients.find(({ id }) => currentJsonIngredient.id === id);
           // if it does, store this instruction's index
           if (instObj) newIngredient.stepIndices.push(stepIndex)
-          
+    
           // the first time around, create the instruction objects
           // and their timers.
           if (ingIndex === 0) {
             // timers don't come with an id so we handle it ourselves
-            let timerIndex = 0;
             
             // create and add the instruction
             recipe.instructions.push({ text: inst.text })

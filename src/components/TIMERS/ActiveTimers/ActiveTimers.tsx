@@ -1,5 +1,5 @@
 import React from "react";
-import { CenterFlexColumn } from "../../UtilityComponents";
+import { CenterFlexRow } from "../../UtilityComponents";
 import StepTimerComponent from "../StepTimers/StepTimer";
 import { AppStepTimer } from "../../../redux/state/stateMap";
 
@@ -8,8 +8,8 @@ type Props = {
 }
 
 export const ActiveTimers = ({ timers }: Props) =>
-  <CenterFlexColumn padding data-testid={ 'active-timers-container' }> {
+  <CenterFlexRow padding data-testid={ 'active-timers-container' }> {
     timers.map((timer, i) =>
       <StepTimerComponent timer={ timer } key={ i }/>
     )
-  } </CenterFlexColumn>;
+  } </CenterFlexRow>;
