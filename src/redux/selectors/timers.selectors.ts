@@ -18,7 +18,10 @@ export const getActiveTimers = createSelector(selectAllTimers,
 )
 
 export const getDoneTimers = createSelector(selectAllTimers,
-  (timers): AppStepTimer[] => timers.filter(t => t.state === CookingTimerState.Done)
+  (timers): AppStepTimer[] => timers.filter(
+    t => t.state === CookingTimerState.Done
+      || t.state === CookingTimerState.Pending
+  )
 )
 
 // const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(n, min))

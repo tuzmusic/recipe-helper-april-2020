@@ -10,6 +10,8 @@ import { carouselStyle, cookingSessionMainAreaStyle, ingredientsAreaStyle, timer
 
 const IngredientsWrapper = styled.div({
   ...ingredientsAreaStyle,
+  padding: '10px',
+  height: '100%',
   width: '30%'
 })
 
@@ -39,12 +41,12 @@ const MainSection = styled(CenterFlexRow)({
 
 export const CookingSession = () =>
   <SessionWrapper>
-    <MainSection>
-      
+    <MainSection fullHeight>
+    
       <IngredientsWrapper>
         <IngredientsListContainer/>
       </IngredientsWrapper>
-      
+    
       <CenterFlexColumn fullWidth>
         <CurrentStepWrapper>
           <StepsCarouselContainer/>
