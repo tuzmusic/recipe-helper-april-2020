@@ -7,8 +7,7 @@ import { AppInstruction } from "../../../redux/state/stateMap";
 
 // const CarouselWrapper = styled(CenterFlexRow)({})
 
-const CarouselWrapper = ({ children }: any) =>
-  <CenterFlexRow fullWidth children={ children }/>
+const CarouselWrapper = styled(CenterFlexRow)({})
 
 const Arrow = styled(CenterFlexRow)({
   width: '40px',
@@ -36,16 +35,15 @@ type Props = {
 
 const ArrowsWrapper = styled(CenterFlexColumn)()
 
-const StepsCarousel = ({ steps, incStep, decStep }: Props) => {
-  return <CarouselWrapper>
+const StepsCarousel = ({ steps, incStep, decStep }: Props) =>
+  <CarouselWrapper fullWidth>
     <StepsWrapper>{
       steps.map((step, i) => <CookingStepContainer step={ step } key={ i }/>)
     }</StepsWrapper>
-    <ArrowsWrapper>
+    <ArrowsWrapper padding>
       <Arrow onClick={ decStep } vMargin>{ "⬆" }</Arrow>
       <Arrow onClick={ incStep } vMargin>{ "⬇" }</Arrow>
     </ArrowsWrapper>
-  </CarouselWrapper>;
-}
+  </CarouselWrapper>
 
 export default StepsCarousel

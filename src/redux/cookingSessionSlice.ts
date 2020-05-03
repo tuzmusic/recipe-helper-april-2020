@@ -17,7 +17,7 @@ export const initialCookingSessionState = {
   ingredients: [] as RecipeIngredient[],
   stepTimers: [] as AppStepTimer[],
   // activeTimers: [] as CookingTimer[],
-  currentStepIndex: 0 as number,
+  currentStepIndex: 1 as number,
 };
 export type CookingSessionState = typeof initialCookingSessionState
 

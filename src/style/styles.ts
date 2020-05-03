@@ -21,11 +21,11 @@ export const timersAreaStyle = {
 
 export const cookingSessionMainAreaStyle = {
   ...mainTextStyles,
-  border: 'solid 1px',
-  borderColor: 'black'
+  // border: 'solid 1px',
+  // borderColor: 'black'
 }
 
 export const recipeTitleAreaStyle = {
   ...mainTextStyles,
-  background: '#253a4e'
+  background: '#1b2c3a'
 }

@@ -32,7 +32,10 @@ class App extends React.Component<{
   componentDidMount = () => this.props.startRecipe(cookiesJson);
   
   render = () =>
-    <AppWrapper bordered fullHeight>
+    <AppWrapper
+      fullHeig ht
+      fullWidth
+    >
       { this.props.recipeName &&
       <>
           <Heading>{ this.props.recipeName }</Heading>
