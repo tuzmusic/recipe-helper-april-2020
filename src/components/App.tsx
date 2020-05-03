@@ -33,7 +33,7 @@ class App extends React.Component<{
   
   render = () =>
     <AppWrapper
-      fullHeig ht
+      fullHeight
       fullWidth
     >
       { this.props.recipeName &&

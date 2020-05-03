@@ -41,7 +41,7 @@ type Props = {
   clearTimer: () => void
 };
 
-const StepTimerComponent = (props: Props) => {
+export const StepTimerComponent = (props: Props) => {
   const { timer, startTimer, pauseTimer, clearTimer, timerDone } = props
   
   // add 100ms buffer so that react-compound-timer displays the first few seconds correctly
