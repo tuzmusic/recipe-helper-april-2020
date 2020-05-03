@@ -8,15 +8,21 @@ import { setAutoFreeze } from 'immer';
 import { CookingSession } from "./CookingSession/CookingSession";
 import { CenterFlexColumn } from "./UtilityComponents";
 import { RecipeJSON } from "../types/parser.types";
+import { recipeTitleAreaStyle } from "../style/styles";
 
 setAutoFreeze(false);
 const AppWrapper = styled(CenterFlexColumn)({
   justifyContent: 'flex-start',
+  // paddingLeft: 10,
+  // paddingRight: 10
 })
 
-const Heading = styled.h1({
+const Heading = styled.div({
+  ...recipeTitleAreaStyle,
+  fontSize: '32px',
+  fontWeight: 'bold',
   padding: '10px',
-  width: '100%'
+  width: '100%',
 })
 
 class App extends React.Component<{

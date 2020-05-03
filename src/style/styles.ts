@@ -1,20 +1,31 @@
-export const carouselStyle = {
-  background: 'pink'
-}
-
-export const timersAreaStyle = {
-  background: 'lightblue'
+const mainTextStyles = {
+  fontFamily: 'sans-serif',
+  color: 'silver'
 }
 
 export const ingredientsAreaStyle = {
-  background: 'beige'
+  ...mainTextStyles,
+  background: '#294257'
+}
+
+export const carouselStyle = {
+  ...mainTextStyles,
+  background: '#9bb7d0',
+  color: 'black'
+}
+
+export const timersAreaStyle = {
+  ...mainTextStyles,
+  background: '#456f93'
 }
 
 export const cookingSessionMainAreaStyle = {
+  ...mainTextStyles,
   border: 'solid 1px',
   borderColor: 'black'
 }
 
 export const recipeTitleAreaStyle = {
-  background: 'lightgreen'
+  ...mainTextStyles,
+  background: '#253a4e'
 }

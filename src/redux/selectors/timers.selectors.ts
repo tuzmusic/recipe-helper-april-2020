@@ -20,7 +20,7 @@ export const getActiveTimers = createSelector(selectAllTimers,
 export const getDoneTimers = createSelector(selectAllTimers,
   (timers): AppStepTimer[] => timers.filter(
     t => t.state === CookingTimerState.Done
-      || t.state === CookingTimerState.Pending
+      // || t.state === CookingTimerState.Pending
   )
 )
 
