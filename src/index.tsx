@@ -6,6 +6,7 @@ import './index.css'
 
 function render() {
   const App = require('./components/App').default;
+  
   (window as any)['store'] = store;
   ReactDOM.render(
     <Provider store={ store }>

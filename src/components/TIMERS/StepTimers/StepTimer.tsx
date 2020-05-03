@@ -74,12 +74,11 @@ export const StepTimerComponent = (props: Props) => {
       [CookingTimerState.Running]: <MdPause size={ iconSize } onClick={ pause }/>,
       [CookingTimerState.Done]: <MdPlayArrow size={ iconSize } onClick={ start }/>,
     }
-    
-    return <TimerWrapper>
+    return <TimerWrapper data-testid={ `${ timer.state } timer container: ${ timer.label }` }>
       <TimerLabel children={ timer.label }/>
       <StepTimerButton onClick={ start }>
         <CenterFlexColumn>
-          <DurationWrapper>
+          <DurationWrapper data-testid={ `${ timer.state } timer button: ${ timer.label }` }>
             <Timer.Minutes/>:
             <Timer.Seconds formatValue={ (v: number) => `${ v }`.padStart(2, "0") }/>
           </DurationWrapper>

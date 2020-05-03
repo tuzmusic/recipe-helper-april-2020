@@ -39,7 +39,7 @@ const ArrowsWrapper = styled(CenterFlexColumn)()
 const StepsCarousel = ({ steps, incStep, decStep }: Props) => {
   
   useEffect(() => {
-    window.addEventListener('keydown', ((e) => {
+    window.addEventListener('keydown', (e => {
       if (e.key === 'ArrowUp') decStep()
       if (e.key === 'ArrowDown') incStep()
     }))
@@ -50,8 +50,8 @@ const StepsCarousel = ({ steps, incStep, decStep }: Props) => {
       steps.map((step, i) => <CookingStepContainer step={ step } key={ i }/>)
     }</StepsWrapper>
     <ArrowsWrapper>
-      <Arrow onClick={ decStep }>{ "⬆" }</Arrow>
-      <Arrow onClick={ incStep }>{ "⬇" }</Arrow>
+      <Arrow onClick={ decStep } data-testid={ 'up arrow' }>{ "⬆" }</Arrow>
+      <Arrow onClick={ incStep } data-testid={ 'down arrow' }>{ "⬇" }</Arrow>
     </ArrowsWrapper>
   </CarouselWrapper>;
 }

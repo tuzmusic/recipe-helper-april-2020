@@ -25,10 +25,10 @@ export type RecipeIngredient = {
 }
 
 export enum CookingTimerState {
-  Pending,
-  Paused,
-  Running,
-  Done
+  Pending = 'Pending',
+  Paused = 'Paused',
+  Running = 'Running',
+  Done = 'Done'
 }
 
 export type AppStepTimer = {

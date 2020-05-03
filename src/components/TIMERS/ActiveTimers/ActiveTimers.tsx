@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const ActiveTimers = ({ timers }: Props) =>
-  <CenterFlexColumn padding> {
+  <CenterFlexColumn padding data-testid={ 'active-timers-container' }> {
     timers.map((timer, i) =>
       <StepTimerComponent timer={ timer } key={ i }/>
     )

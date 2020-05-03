@@ -19,7 +19,7 @@ const PlaceholderTimer = () =>
   </div>
 
 export const StepTimers = ({ timers }: Props) =>
-  <CenterFlexRow padding>
+  <CenterFlexRow padding data-testid={ 'pending-timers-container' }>
     <PlaceholderTimer/>
     { timers.map((t, i) => <StepTimerContainer key={ i } timer={ t }/>) }
   </CenterFlexRow>
