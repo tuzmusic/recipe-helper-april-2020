@@ -9,7 +9,7 @@ type Props = {
 
 export const ActiveTimers = ({ timers }: Props) =>
   <CenterFlexRow padding data-testid={ 'active-timers-container' }> {
-    timers.map((timer, i) =>
-      <StepTimerComponent timer={ timer } key={ i }/>
+    timers.map(timer =>
+      <StepTimerComponent timer={ timer } key={ timer.id }/>
     )
   } </CenterFlexRow>;

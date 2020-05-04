@@ -22,11 +22,9 @@ type Props = { timers: AppStepTimer[] }
 export const StepTimers = ({ timers }: Props) =>
   <CenterFlexRow padding data-testid={ 'pending-timers-container' }>
     <PlaceholderTimer/>
-    { timers.map((t, i) =>
-      <StepTimerContainer
-        // must be different on every render or the StepTimer component gets reused
-        key={ Math.random() }
-        timer={ t }/>) }
+    { timers.map(timer =>
+      <StepTimerContainer key={ timer.id } timer={ timer }/>
+    ) }
   </CenterFlexRow>
 
 
