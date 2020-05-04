@@ -3,8 +3,6 @@ import React from "react";
 import { CenterFlexRow } from "../../UtilityComponents";
 import { AppStepTimer, CookingTimerState } from "../../../redux/state/stateMap";
 
-type Props = { timers: AppStepTimer[] }
-
 const placeHolderTimer: AppStepTimer = {
   state: CookingTimerState.Pending,
   id: -1, durationSec: 0,
@@ -13,15 +11,22 @@ const placeHolderTimer: AppStepTimer = {
 
 // to keep the height of the timer section when there are no timers,
 // add a hidden, zero-width timer to the container.
+
 const PlaceholderTimer = () =>
   <div style={ { visibility: 'hidden', width: 0 } }>
     <StepTimerContainer timer={ placeHolderTimer }/>
   </div>
 
+type Props = { timers: AppStepTimer[] }
+
 export const StepTimers = ({ timers }: Props) =>
   <CenterFlexRow padding data-testid={ 'pending-timers-container' }>
     <PlaceholderTimer/>
-    { timers.map((t, i) => <StepTimerContainer key={ i } timer={ t }/>) }
+    { timers.map((t, i) =>
+      <StepTimerContainer
+        // must be different on every render or the StepTimer component gets reused
+        key={ Math.random() }
+        timer={ t }/>) }
   </CenterFlexRow>
 
 

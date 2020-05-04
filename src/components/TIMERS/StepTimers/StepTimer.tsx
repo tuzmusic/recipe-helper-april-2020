@@ -6,6 +6,7 @@ import { setTimerState } from "../../../redux/cookingSessionSlice";
 import { useDispatch } from "react-redux";
 import { MdCancel, MdPause, MdPlayArrow } from 'react-icons/md'
 import { AppStepTimer, CookingTimerState } from "../../../redux/state/stateMap";
+import { getTimerStr } from "../../../redux/selectors/timers.selectors";
 
 const TimerWrapper = styled.div({
   margin: '0 5px',
@@ -37,14 +38,20 @@ const IconsWrapper = styled(CenterFlexRow)({
 
 type Props = {
   timer: AppStepTimer
+  timeStr: string
   startTimer: () => void
   pauseTimer: () => void
   timerDone: () => void
   clearTimer: () => void
 };
 
+/*
+* I THINK WE'RE RENDERING THE SAME STEPTIMER COMPONENT EACH TIME.
+* THE LOG STATEMENT IN THE FIRST USEEFFECT BELOW CONFIRMS THAT
+* INDEED IT IS THE SAME COMPONENT
+* */
 export const StepTimerComponent = (props: Props) => {
-  const { timer, startTimer, pauseTimer, clearTimer, timerDone } = props
+  const { timer, startTimer, pauseTimer, clearTimer, timerDone, timeStr } = props
   
   // add 100ms buffer so that react-compound-timer displays the first few seconds correctly
   const initialTime = timer.durationSec * 1000 + 100;
@@ -101,6 +108,7 @@ const StepTimerContainer = ({ timer }: { timer: AppStepTimer }) => {
   
   return <StepTimerComponent
     timer={ timer }
+    timeStr={ getTimerStr(timer.durationSec) }
     startTimer={ () => dispatch(setTimerState({ timer, timerState: CookingTimerState.Running })) }
     pauseTimer={ () => dispatch(setTimerState({ timer, timerState: CookingTimerState.Paused })) }
     timerDone={ () => dispatch(setTimerState({ timer, timerState: CookingTimerState.Done })) }

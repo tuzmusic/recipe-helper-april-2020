@@ -7,11 +7,19 @@ export const cookiesJson: RecipeJSON = {
       text: "Preheat the oven to 375, while dancing for one minute. And get the eggs ready!",
       timers: [{
         label: "Dance",
-        durationSec: 60,
+        durationSec: 5,
       }],
       ingredients: [
         { name: "1 egg", id: 3 },
       ]
+    },
+    {
+      text: "Bake for 30 minutes",
+      timers: [{
+        label: "Bake",
+        durationSec: 30 * 60
+      }],
+      ingredients: []
     },
     {
       text: "Crack the egg",
@@ -28,14 +36,6 @@ export const cookiesJson: RecipeJSON = {
         { name: "1 cup chips", id: 1 },
         { name: "2 tbsp sugar", id: 2 },
       ]
-    },
-    {
-      text: "Bake for 30 minutes",
-      timers: [{
-        label: "Bake",
-        durationSec: 30 * 60
-      }],
-      ingredients: []
     },
   ],
   ingredients: [
