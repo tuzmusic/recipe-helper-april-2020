@@ -8,7 +8,6 @@ import {
   RecipeIngredient,
 } from "./state/stateMap";
 import { Recipe } from "../models/RecipeModel";
-import { getActiveTimers } from "./selectors/timers.selectors";
 import { RecipeJSON } from "../types/parser.types";
 
 export const initialCookingSessionState = {
@@ -33,7 +32,7 @@ const cookingSessionSlice = createSlice({
       state.instructions = [...instructions]
       state.stepTimers = [...timers];
     },
-  
+    
     incStep(state) {
       if (state.currentStepIndex + 1 < state.instructions.length)
         state.currentStepIndex++
@@ -46,7 +45,7 @@ const cookingSessionSlice = createSlice({
       if (stepNum >= 0 && stepNum < state.instructions.length)
         state.currentStepIndex = stepNum
     },
-  
+    
     toggleIngredientState(state, { payload }:
       PayloadAction<{ ingredient: RecipeIngredient, stateKey: keyof IngredientState }>) {
       const { ingredient, stateKey } = payload;
@@ -54,26 +53,14 @@ const cookingSessionSlice = createSlice({
       //  its info. or something like that.
       ingredient.state[stateKey] = !ingredient.state[stateKey]
     },
-  
+    
     setTimerState(state, { payload }: PayloadAction<{ timer: AppStepTimer, timerState: CookingTimerState }>) {
       const { timer, timerState } = payload
-      warnAboutTimerBug(state, payload)
-      const timerInStore = state.stepTimers
-        .find(t => t.id === timer.id)!
+      const timerInStore = state.stepTimers.find(t => t.id === timer.id)!
       timerInStore.state = timerState
     }
   }
 });
-
-const warnAboutTimerBug = (cookingSession: CookingSessionState, { timer, timerState }: { timer: AppStepTimer, timerState: CookingTimerState }) => {
-  const activeTimerIndices = getActiveTimers({ cookingSession, prefs: { displayedSteps: 3 } }).map(t => t.stepIndex)
-  if (timerState === CookingTimerState.Running && timer.stepIndex < Math.max(...activeTimerIndices)) {
-    let str = 'KNOWN BUG: '
-    str += 'Adding a timer from a step earlier than a current running timer '
-    str += 'sets the wrong time for the newly added timer! '
-    alert(str)
-  }
-}
 
 export const {
   startRecipe,
