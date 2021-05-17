@@ -1,3 +1,18 @@
+# Recipe Helper
+
+In Progress. An app to make it easier to focus on each step in a recipe, and help with ingredients and timers.
+
+Currently uses a mock recipe. Timers are shown on their relevant steps, but don't get have labels. Ingredients are focused on their relevant steps, but can't be checked off or anything similar.
+
+## To run:
+Download dependencies: `yarn install`
+
+Run: `yarn`
+
+Application will launch at `localhost:3000`
+
+----
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
